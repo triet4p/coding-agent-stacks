@@ -1,0 +1,4 @@
+interface:
+  display_name: "Databricks Slides"
+  short_description: "Databricks-style PowerPoint slide builder"
+  default_prompt: "Use $databricks-slides to build a Databricks-style slide deck with title, ToC, section divider, and content slides."
