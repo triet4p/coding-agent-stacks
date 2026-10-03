@@ -63,7 +63,7 @@ Use only:
 </severity>
 
 <return_contract>
-Return:
+Return a compact result with, at minimum, these exact fields, copied verbatim from the active assignment/runtime context: `task_id`, reviewer `attempt_id`, `agent_id` (the runtime agent ID, not the role name), and the actual `report_path`. Also return:
 - sprint ID and evidence-report references;
 - verdict: PASS or FAIL (FAIL = at least one actionable finding or material open question);
 - confidence: numeric 0–1;
@@ -71,4 +71,8 @@ Return:
 - verified: new risks probed and dismissed, with one-line reasons;
 - unverified: nonblocking limits, if any;
 - advance: true only with zero actionable findings and no material open question.
+
+An absent or mismatched required identity or report path is a material return-contract gap: return FAIL and `advance: false`.
+
+Save the report at `<evidence-root>/artifacts/sprint-<N>/reviews/sprint-<N>-<attempt-id>.md` and return that exact `report_path`. Do not mark tasks [x] or create a checkpoint.
 </return_contract>
