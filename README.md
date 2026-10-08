@@ -29,6 +29,7 @@ This does not change the saved execution policy. On systems with PowerShell 7, u
 | `.agents/rules/` | `~/.agents/rules/` |
 | `.agents/skills/` (including references, assets, and scripts) | `~/.agents/skills/` |
 | `.omp/agent/agents/` | `~/.omp/agent/agents/` |
+| `.omp/agent/config.example.yml` (enabled by default) | `~/.omp/agent/config.yml` |
 
 The default destination is PowerShell's `$HOME`. To install into a different home directory:
 
@@ -36,7 +37,17 @@ The default destination is PowerShell's `$HOME`. To install into a different hom
 .\install.ps1 -HomePath 'D:\AgentHome'
 ```
 
-The installer copies only the three payload directories above. It does not install the OMP application, configure provider accounts, or copy settings, credentials, sessions, databases, private memory, benchmarks, or repository artifacts. Subagent model selections remain those in the supplied agent definitions; model/provider access must be configured separately. Restart OMP after installation to reload the definitions.
+By default, the installer copies `.omp/agent/config.example.yml` from the repository byte-for-byte to `$HomePath/.omp/agent/config.yml` (normally `~/.omp/agent/config.yml`), preserving the relative directory and changing only the filename. This is a complete config-file replacement, not a merge. Identical files are skipped; a differing destination config blocks all installation writes unless `-Force` is used. A forced replacement backs up the old file under `~/.omp/.install-backups/<run-id>/agent/config.yml`.
+
+To disable the preset entirely, including any check or change to an existing config, invoke the script directly from PowerShell:
+
+```powershell
+.\install.ps1 -UsePresetConfig:$false
+```
+
+Windows PowerShell 5.1's `-File` mode has limitations passing `$false` to switch parameters; use the direct invocation above (or call the script from `-Command`) to reliably opt out.
+
+The sample contains config settings, including model/provider selections, but excludes local setup/onboarding metadata (`setupVersion`), `dev.autoqaConsent` consent, auth tokens/credentials, and private user paths or state. These selections do not authenticate providers; configure provider accounts and access separately. The installer does not install the OMP application or copy other settings, credentials, sessions, databases, private memory, benchmarks, or repository artifacts. Restart OMP after installation to reload the definitions.
 
 ### Preview and update
 

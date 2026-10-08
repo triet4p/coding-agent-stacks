@@ -1,18 +1,21 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-Installs coding-agent-stacks rules, skills, and subagent definitions.
+Installs coding-agent-stacks rules, skills, subagent definitions, and an optional preset config.
 .EXAMPLE
 .\install.ps1 -WhatIf
 .EXAMPLE
 .\install.ps1 -Force
+.EXAMPLE
+.\install.ps1 -UsePresetConfig:$false
 .EXAMPLE
 .\install.ps1 -HomePath 'C:\Users\another-user'
 #>
 [CmdletBinding(SupportsShouldProcess = $true)]
 param(
     [string] $HomePath = $HOME,
-    [switch] $Force
+    [switch] $Force,
+    [switch] $UsePresetConfig = $true
 )
 
 Set-StrictMode -Version Latest
@@ -81,6 +84,49 @@ foreach ($relativeRoot in $payloadRoots) {
         }
     }
 }
+if ($UsePresetConfig) {
+    $presetSource = Join-Path $PSScriptRoot '.omp/agent/config.example.yml'
+    if (-not (Test-Path -LiteralPath $presetSource -PathType Leaf)) {
+        throw "Missing preset config: $presetSource. Run this script from a complete repository clone or disable it with -UsePresetConfig:`$false."
+    }
+
+    $relativePath = '.omp/agent/config.yml'
+    $destination = Join-Path $destinationHome $relativePath
+    $parent = Split-Path -Parent $destination
+    while ($parent) {
+        if (Test-Path -LiteralPath $parent) {
+            if (-not (Test-Path -LiteralPath $parent -PathType Container)) {
+                throw "Destination parent is not a directory: $parent"
+            }
+            break
+        }
+        $parent = Split-Path -Parent $parent
+    }
+
+    $exists = Test-Path -LiteralPath $destination
+    if ($exists -and -not (Test-Path -LiteralPath $destination -PathType Leaf)) {
+        throw "Destination is not a file: $destination"
+    }
+    $presetMatches = $false
+    if ($exists) {
+        $sourceHash = Get-ContentDigest $presetSource
+        $destinationHash = Get-ContentDigest $destination
+        if ($sourceHash -eq $destinationHash) {
+            $presetMatches = $true
+        } else {
+            $conflicts += $destination
+        }
+    }
+    if (-not $presetMatches) {
+        $plan += [pscustomobject]@{
+            Source = $presetSource
+            Destination = $destination
+            RelativePath = $relativePath
+            Exists = $exists
+        }
+    }
+}
+
 
 if ($conflicts.Count -gt 0 -and -not $Force) {
     throw ("Existing files differ; nothing was installed. Use -Force to back up and replace them:`n" + ($conflicts -join "`n"))
