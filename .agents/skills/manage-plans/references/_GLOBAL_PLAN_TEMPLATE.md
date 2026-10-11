@@ -15,3 +15,5 @@
 
 ## Backlog / Future Work
 * Summarized epic or feature ideas
+
+Plans contain milestones and current scope/status only. Do not append execution logs or copy handoffs here; save needed handoff/temporary-state files separately under this repository's `artifacts/`.

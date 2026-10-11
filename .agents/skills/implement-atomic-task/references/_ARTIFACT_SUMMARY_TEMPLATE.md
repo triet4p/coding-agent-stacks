@@ -1,55 +1,56 @@
-# Task Summary: <Task ID>
+# Task Result: <Task ID>
 
 **Sprint:** <Sprint ID>  
-**Task:** <Task ID and acceptance criterion>  
-**Attempt(s):** <current attempt ID and any superseded attempts>
+**Task and acceptance criterion:** <Task ID and concise criterion>  
+**Attempt:** <current attempt ID>
 
-## Worker Handoff
+## Worker Result
 
-*Worker-owned evidence only. Main does not fill or transcribe this artifact.*
+*Worker-owned information only. Main does not fill or transcribe this record.*
 
-### Scope
+### Route
 
-- **Classification:** `PROJECT-BACKED` / `EXPLICIT NON-PROJECT`
-- **Assigned project repository/worktree/ref, or non-project assignment reference:** <explicit values; never infer from the current directory>
-- **Evidence root:** <absolute path from the active plan or assignment>
-
-### Task Routing
-
-- **Task family:** <family used for calibration>
-- **Exact role:** `bronze-task` / `silver-task` / `gold-task` (explicit flow role; the obsolete `task`/`hard-task` agent roles are not valid here, and the bundled OMP generic `task` tool is outside this flow)
-- **Tier:** `Bronze` / `Silver` / `Gold` (pinned to the exact role above: Bronze `opencode-go/mimo-v2.6-flash:high`; Silver `openai-codex/gpt-6-luna:xhigh`; Gold `opencode-go/muse-spark-1.3-contributor:high`)
-- **Exact resolved selector/effort:** <Main-assigned per-call selector for the exact role above>
-- **Selection reason:** <why this role/tier fits this family/reasoning need>
-- **Relevant historical refs:** <compact refs if any, else `None`; never invent session history>
-- **Quota observation:** <observation, or `unknown`; never fabricate quota mechanics>
-- **Meaningful progress/blocker:** <concise status>
+- **Workflow and required gates:** `light` / `full`; <only the assigned review/checkpoint/deep-review and commit boundary, or `None`>
+- **Task family and assignment basis:** <dispatch-known family/history and the user's selected role or scoped routing authority>
+- **Assigned role/tier:** `bronze-task` / `silver-task` / `gold-task`; corresponding tier
+- **Configured effective selector/effort:** <effective role-definition value if observed, otherwise `unknown`>
+- **Actual runtime selector/effort:** <observed value if available, otherwise `unknown`; never present the configured value as observed runtime>
+- **Selection reason:** <concise fit to this task>
+- **Relevant history refs:** <compact exact refs or `None`; never invent references>
+- **Quota/cost observation:** <observed or `unknown`; no fixed assumptions>
 
 ### Outcome
 
-<Observable behavior delivered; what changed for its consumer.>
-
-### Files Changed
-
-- `<path>` — <reason>
-
-Record routing metadata in this normal artifact only; add no new telemetry, cooldowns, counters, or enforced numeric budgets.
+- **Status:** `implementation_complete` / `partial` / `blocked`
+- **Observable result:** <what changed and what the evidence actually shows>
+- **Remaining criteria/blocker:** <none, or concise concrete detail>
+- **Changed files:** <paths and reasons>
 
 ### Verification
 
-- **Command or scenario:** `<exact command>` / <manual steps>
-- **Observed result:** <actual output or behavior>
-- **Regression test:** <test and result, or why no permanent test was warranted>
-- **Limitations:** <unavailable runtime or other evidence limit, or `None`. Verification for a documentation or workflow-only task is an instruction cross-reference check, not an invented automated test.>
+- **Command or scenario and observed result:** <exactly what was run/observed, or `Not run` with the assignment reason>
+- **Regression test:** <actual result, or why no permanent test was warranted / was not assigned>
+- **Limitations:** <concrete evidence gap or `None`; documentation/workflow checks are instruction cross-reference checks, not invented automated tests>
 
-### Advisor Consultation Evidence
+### Commit Status
 
-<None, or bounded task/attempt/consultation IDs, question, blocker, evidence, tried hypotheses/results, diagnostic conclusion, worker action and observed result. If a GPT-6.1 Sol override was used, include the exact model/effort and a reference to explicit approval scoped to this consultation. A bounded request may precede repeated failures when genuinely new discriminating evidence is unavailable; elapsed time or attempt/file counts alone never justify a request. Do not include full prompts, transcripts, or trajectories.>
+- **Authorization:** <not authorized / not applicable / exact assigned permission>
+- **Result:** <not attempted / exact observed outcome; identify only the worker's verified scope and commit if authorized>
 
-### Open Findings
+### Assigned Gate References
 
-<None, or concrete unresolved finding/blocker. Do not label an unverified task complete. Record early uncertainty with no new discriminating evidence here when it required a qualified advisor request, not a tier escalation.>
+*Omit this section when no review or checkpoint was assigned. Do not copy another role's evidence into this worker-owned record.*
+
+- **Evidence review:** <assigned or not assigned; if assigned, reviewer-owned report path and verdict>
+- **Frozen-snapshot manifest:** <required only when a full-route checkpoint is planned; reviewer-owned manifest path, otherwise `Not required`>
+- **Full-route checkpoint:** <assigned or not planned; if assigned, executor-owned record path and observed status>
+
+### Separate Handoff File
+
+*Only when paused or replaced: save detailed attempt-scoped handoff state in a separate file under the assigned project's `artifacts/` directory (or explicit non-project output root), and link it here. Never put the handoff section or temporary supervision log in this task summary or a sprint plan. Main owns separate supervision-state files.*
+
+- **Handoff path:** <path or `None`>
 
 ## Record Ownership
 
-The matching evidence reviewer writes its own report under `<evidence-root>/artifacts/sprint-<N>/reviews/`; a fresh checkpoint-only executor writes its own checkpoint record under `<evidence-root>/artifacts/sprint-<N>/checkpoints/`. Main edits only the plan/status and concise links or summaries to these records. This worker artifact is not review approval, checkpoint evidence, or a commit authorization.
+This worker record is not an independent review, frozen-snapshot manifest, checkpoint record, or commit authorization. Reviewer and checkpoint records are written separately by their assigned owners.
