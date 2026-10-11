@@ -13,11 +13,11 @@
 - **Workflow and required gates:** `light` / `full`; <only the assigned review/checkpoint/deep-review and commit boundary, or `None`>
 - **Task family and assignment basis:** <dispatch-known family/history and the user's selected role or scoped routing authority>
 - **Assigned role/tier:** `bronze-task` / `silver-task` / `gold-task`; corresponding tier
-- **Configured effective selector/effort:** <effective role-definition value if observed, otherwise `unknown`>
-- **Actual runtime selector/effort:** <observed value if available, otherwise `unknown`; never present the configured value as observed runtime>
 - **Selection reason:** <concise fit to this task>
 - **Relevant history refs:** <compact exact refs or `None`; never invent references>
 - **Quota/cost observation:** <observed or `unknown`; no fixed assumptions>
+
+*Report the subagent role and work IDs only; never include model/provider names, selectors or effort values, including copied metadata from earlier histories.*
 
 ### Outcome
 
