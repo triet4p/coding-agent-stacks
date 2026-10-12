@@ -47,7 +47,7 @@
 
 ### Separate Handoff File
 
-*Only when paused or replaced: save detailed attempt-scoped handoff state in a separate file under the assigned project's `artifacts/` directory (or explicit non-project output root), and link it here. Never put the handoff section or temporary supervision log in this task summary or a sprint plan. Main owns separate supervision-state files.*
+*When paused or replaced: link the separate handoff file saved under `artifacts/`.*
 
 - **Handoff path:** <path or `None`>
 

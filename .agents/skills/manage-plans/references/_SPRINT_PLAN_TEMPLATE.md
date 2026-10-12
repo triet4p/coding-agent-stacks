@@ -14,6 +14,4 @@ Workflow: <light or full; state only required review/commit boundaries, not a di
 
 ## Decisions / Blockers
 
-*Only durable decisions, real blockers, and concise outcome/evidence links. Update current task status in place; no turn-by-turn agent, timer, wait, retry, or tool log.*
-
-*Detailed handoffs or saved temporary state belong in separate files under this repository's `artifacts/`, never in this plan.*
+*Durable decisions, real blockers, and concise outcome links only. Save temporary handoffs separately under `artifacts/`.*

@@ -19,3 +19,16 @@
 - Unless the user already selected roles or granted auto-routing for the covered work, use one `ask` call with one distinct question per task. A request for T3–T5 needs at least three task questions, not one shared "which agent for this batch?" question.
 - Each question identifies its task ID and concrete work/outcome, then presents the applicable subagent roles, recommendation/reason, light/full gates and commit permission. Batch the questions, not the task descriptions into a single generic question. Omit model metadata.
 - Bind each answer to its own task. A role selected for T3 does not select that role for T4/T5. A per-task explicit selection takes precedence over a broader auto-routing grant; any offered batch-auto option must name its exact scope and cannot hide other task questions when no prior grant exists.
+
+## Main session minimal context & pointer delegation
+
+- **Strict context whitelist:** To eliminate token bloat (reading 50–60K tokens before doing any work), Main reads ONLY:
+  1. The active sprint plan (`docs/sprint-plans/sprint-N.md`) or the user's immediate prompt.
+  2. Delivered compact worker results, reviewer gate reports, and handoff references.
+- **Forbidden reads for Main:**
+  - Never read subagent prompt bodies (`.omp/agent/agents/*.md`). The OMP harness automatically loads agent definitions upon `functions.task(agent=...)`.
+  - Never read `skill://implement-atomic-task` (the worker reads its own execution skill in its isolated session).
+  - Never read codebase source files, API implementations, or extensive technical documentation to "prepare context" for workers.
+  - Never read completed/past sprint plans in `docs/sprint-plans/` or full history transcripts (`history://...`).
+- **Pointer delegation to workers:** Main provides file pointers and acceptance criteria (`read path/to/spec.md:lines`), never pre-reading and summarizing codebase context into the worker prompt. The worker reads on demand in its own ephemeral session.
+- **Lightweight handoff between subagents:** When transitioning from worker to reviewer or executor, Main transfers pointers only: `task_id`, `attempt_id`, `worker_artifact_path`, `worker_history_uri` (`history://<runtime-agent-id>`), and commit/base refs. The reviewer reads the worker artifact and history directly. Subagents may communicate directly via `write agent://<id>` for clarifications; Main does not act as a transcript relay.

@@ -5,7 +5,7 @@ model: openai-codex/gpt-6-luna:xhigh
 blocking: false
 ---
 
-Silver implementation worker for one bounded atomic task with clear rules, little ambiguity, and a positive task-family fit: isolated business logic, features, or diagnosis. The user or Main within the user's scoped routing authority selects the role; workers never reroute. Silver is a direct eligible choice for bounded reasoning; Gold is also eligible for medium work and needs no prior Silver failure. Neither role is an automatic default. OMP's bundled generic `task` is outside this flow. Follow the assignment and `skill://implement-atomic-task` for the shared procedure, evidence, and advisor requests; Main owns planning, status, and only explicitly assigned review/checkpoint gates.
+Silver implementation worker for one bounded atomic task with clear rules, little ambiguity, and a positive task-family fit: isolated business logic, features, or diagnosis. Follow the assignment and `skill://implement-atomic-task` for the shared procedure, verification, and advisor requests; Main owns planning, status, and gates.
 
 <scope>
 - Implement exactly the assigned concern: ordinary logic or a bounded diagnosis with discriminating hypotheses checked against an observable contract.
