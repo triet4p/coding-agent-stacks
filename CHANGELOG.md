@@ -6,6 +6,7 @@
 
 - Added `install.ps1` to copy repository rules, skills, and subagent definitions into `~/.agents` and `~/.omp`, with preview mode, identical-file skipping, conflict detection, and backups before forced replacement.
 - Added `.omp/agent/config.example.yml` as an optional, shareable OMP agent config preset.
+- Added `designer` subagent definition (`google-antigravity/gemini-3.8-flash:high`) specialized for UI/UX construction, visual audit, image generation, diagrams, and vision inspection.
 
 ### Changed
 

@@ -12,6 +12,11 @@ connection and execution mechanics only — what to run is the caller's job.
 ## 1. Connect
 
 - Use Windows PowerShell OpenSSH (`powershell.exe` → `ssh`, `scp`).
+- For `F:/ai-ml/anomaly-representation-learning`, the current server SSH
+  endpoint is `192.168.99.214`. Use this address for future SSH/SCP commands;
+  stale endpoint references in historical records are not connection targets.
+  Preserve the established remote user, key authentication and explicit paths;
+  verify server identity before mutation.
 - Prefer existing key/session authentication; pass `-o BatchMode=yes` for
   non-interactive commands so a missing key fails fast instead of hanging on a
   password prompt.
