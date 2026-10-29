@@ -6,7 +6,7 @@ This protocol applies whenever an active subagent is paused, stopped, replaced, 
 
 ## 1. Main-Owned Supervision & Evaluation Checkpoints
 
-- With the user-disabled soft request budget, Main supervises attempts through existing completion/message events and the one-shot progress timer; do not reinstate a fixed request, elapsed-time, or token cutoff in prompts.
+- With the user-disabled soft request budget, Main supervises attempts through existing completion/message events and the one-shot progress timer; do not reinstate a fixed request, elapsed-time, or token cutoff in prompts. Run the diagnostic pass in `progress-supervision.md` on each matched reply or blocker message first; probes, scouts, and advisor consultations inform continuation but never bypass review-round limits or an owner decision.
 - Continue while evidence improves within the authorized review allowance. Keep a live worker/reviewer pair for corrections; ordinary clarification needs no replacement or pause handoff. Apply `evidence-review-cycle.md` for default-two/conditional-third continuation and early gate reconsideration; do not replace an agent to evade an owner decision.
 - **Evaluation checkpoint (~4–5 progress exchanges):** After roughly 4–5 matched progress exchanges on an attempt, Main explicitly reassesses progress, blocker, and next safe action:
   - Continue with a concrete reason.

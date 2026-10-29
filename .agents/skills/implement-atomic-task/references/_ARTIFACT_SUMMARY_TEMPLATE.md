@@ -17,7 +17,6 @@
 - **Assigned role/tier:** `bronze-task` / `silver-task` / `gold-task`; corresponding tier
 - **Selection reason:** <concise fit to this task>
 - **Relevant history refs:** <compact exact refs or `None`; never invent references>
-- **Quota/cost observation:** <observed or `unknown`; no fixed assumptions>
 
 *Report the subagent role and work IDs only; never include model/provider names, selectors or effort values, including copied metadata from earlier histories.*
 

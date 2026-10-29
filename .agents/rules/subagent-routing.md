@@ -20,16 +20,16 @@
 - Each question identifies its task ID and concrete work/outcome, then presents the applicable subagent roles, recommendation/reason, light/full gates and commit permission. Batch the questions, not the task descriptions into a single generic question. Omit model metadata.
 - Bind each answer to its own task. A role selected for T3 does not select that role for T4/T5. A per-task explicit selection takes precedence over a broader auto-routing grant; any offered batch-auto option must name its exact scope and cannot hide other task questions when no prior grant exists.
 
-## Child delegation and optional specialists
+## Child delegation, scout dispatch, and optional specialists
 
 - Main retains orchestration dispatch authority. Among subagents, only `researcher` may spawn children, and only `bronze-task` or `researcher`. Researcher may choose these roles freely within its assigned research scope without another routing ask; child researchers inherit the same permission, while Bronze children cannot spawn. All other subagents must not spawn children.
-- This permission does not expand scope, commit/push authority, or applicable concurrency limits. In an active flow, count descendants toward the two-active-subagent total.
-- `designer` is optional and outside the sprint flow. Invoke it only on the user's explicit request; do not insert it as an automatic worker, advisor, or gate.
+- Separately, Main may dispatch short-lived read-only `scout` agents for bounded evidence gathering under `skill://omp-subagent-flows/references/scout.md`. A scout answers one Main-assigned question inside an explicit read scope, returns a cited evidence pack, and ends; it never diagnoses, spawns, commits, or contacts the worker. Scouts count toward the two-active-subagent limit while running.
+- `designer` is optional and outside the sprint flow. Invoke it only on the user's explicit request; do not insert it as an automatic worker, advisor, scout, or gate.
 
 ## Main session minimal context & pointer delegation
 
 - **Minimal orchestration context:** Main normally reads only the immediate prompt, active sprint plan, compact results, gate verdicts, and handoff references. Read workflow references only when the current step needs them, not as an exhaustive preflight.
-- Do not read agent prompt bodies, the worker's `implement-atomic-task` skill, source/API/architecture files, completed plans, or full histories merely to prepare a dispatch. Trust the harness to load role definitions and apply overrides.
+- Do not read agent prompt bodies, the worker's `implement-atomic-task` skill, source/API/architecture files, completed plans, or full histories merely to prepare a dispatch. Dispatch a bounded `scout` for facts Main must not collect by reading source itself. Trust the harness to load role definitions and apply overrides.
 - These limits prevent unnecessary context loading during orchestration; they do not prohibit targeted reads when the user explicitly asks Main to inspect or edit those files. Keep such reads limited to the requested work.
 - **Pointer delegation to workers:** Main provides file pointers and acceptance criteria (`read path/to/spec.md:lines`), never pre-reading and summarizing codebase context into the worker prompt. The worker reads on demand in its own ephemeral session.
 - **Lightweight handoff between subagents:** Main transfers criterion, artifact/history, repository/ref pointers and paired IDs with review cycle/round. Worker and evidence reviewer communicate directly for clarification and authorized corrections; Main gets compact transitions/outcomes. Follow the shared flow review policy: two rounds by default, a third only on Main's evidence-based authorization, then owner decision if still not PASS. Replacement never resets counts; quantitative-gate concerns may require earlier owner input.

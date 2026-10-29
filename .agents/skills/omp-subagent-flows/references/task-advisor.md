@@ -1,14 +1,14 @@
 # Main-Brokered Task-Advisor Consultations Protocol
 
-This protocol applies only when an active implementation worker explicitly requests diagnostic advice. Main brokers the consultation to a fresh, non-blocking `task-advisor` subagent.
+This protocol applies when Main brokers diagnostic advice to a fresh, non-blocking `task-advisor` subagent — either for a qualified worker request or for a Main-initiated trigger after stuck diagnostic passes. Advice stays diagnostic; the worker tests it independently.
 
 ---
 
 ## 1. Request Qualification & Boundaries
 
-- A worker may request diagnostic help when it has a bounded, evidence-backed unresolved technical question or material uncertainty that genuinely useful diagnostic input could inform, including competing plausible hypotheses with no safe discriminating next action.
+- A worker may request diagnostic help when it has a bounded, evidence-backed unresolved technical question or material uncertainty that genuinely useful diagnostic input could inform, including competing plausible hypotheses with no safe discriminating next action. Main may also initiate a consultation after two consecutive stuck diagnostic passes with no safe next action, or when the worker signals pending interest (`advisor_needed: true` without a complete payload) and cannot complete the request itself. Elapsed time or a fixed attempt count alone is never sufficient; generic or open-ended task delegation does not qualify.
 - Repeated identical errors or failed hypotheses, no new evidence across distinct attempts, and an unchanged blocker without a discriminating next action are examples, not prerequisites.
-- Elapsed time or a fixed attempt count alone is never sufficient; generic or open-ended task delegation does not qualify.
+- Do not confuse a diagnostic consultation with a `scout` evidence-gathering assignment under `references/scout.md`: scouts collect cited facts for Main's own diagnostic pass, advisors reason over an already-bounded question.
 - A worker's `advisor_request` must contain:
   - Matching `task_id`, `attempt_id`, and a unique `consultation_id`.
   - Goal / acceptance criterion and current blocker.
@@ -24,7 +24,7 @@ This protocol applies only when an active implementation worker explicitly reque
 - The timer's `advisor_offer` ("Bạn cần advisor gì không?") is part of the existing progress request, not a separate message.
 - `advisor_needed: false` is a cheap decline and triggers no follow-up.
 - `advisor_needed: true` without the complete request payload is pending interest, not a consultation; it never launches an advisor. The worker may add the complete request to its next normal progress reply or send one qualified request directly.
-- **Deduplication:** At most one consultation per worker and two active subagents total. Omit advisor offers while a request, interest, consultation or evidence review is active. A live worker/reviewer pair fills both slots; an advisor cannot bypass the continuation/owner-decision policy in `evidence-review-cycle.md`.
+- **Deduplication:** At most one consultation per worker and two active subagents total. Omit advisor offers while a request, interest, consultation, scout, or evidence review is active. A live worker/reviewer pair fills both slots; an advisor cannot bypass the continuation/owner-decision policy in `evidence-review-cycle.md`. A scout is evidence gathering, not a substitute consultation: do not broker an advisor merely because a scout pack was inconclusive.
 - Before asking again after a consultation, the worker must first try relevant advice and record the observed result, or provide genuinely new discriminating evidence.
 
 ---
