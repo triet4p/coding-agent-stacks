@@ -24,7 +24,7 @@ This protocol applies only when an active implementation worker explicitly reque
 - The timer's `advisor_offer` ("Bạn cần advisor gì không?") is part of the existing progress request, not a separate message.
 - `advisor_needed: false` is a cheap decline and triggers no follow-up.
 - `advisor_needed: true` without the complete request payload is pending interest, not a consultation; it never launches an advisor. The worker may add the complete request to its next normal progress reply or send one qualified request directly.
-- **Deduplication:** Allow at most one active consultation per worker and two active subagents total. Omit further advisor offers while any request, pending interest, or consultation exists.
+- **Deduplication:** At most one consultation per worker and two active subagents total. Omit advisor offers while a request, interest, consultation or evidence review is active. A live worker/reviewer pair fills both slots; an advisor cannot bypass the continuation/owner-decision policy in `evidence-review-cycle.md`.
 - Before asking again after a consultation, the worker must first try relevant advice and record the observed result, or provide genuinely new discriminating evidence.
 
 ---
@@ -40,7 +40,7 @@ This protocol applies only when an active implementation worker explicitly reque
 
 ## 4. Dispatch-Consent Policy (Sol Family)
 
-- Before each advisor launch, Main verifies that the effective `task-advisor` definition is non-blocking and async execution is enabled.
+- Dispatch the named `task-advisor` directly, trusting the harness for its effective definition and async execution; do not read definition/configuration files as preflight. For the consent rule below, use available runtime metadata. If it cannot establish whether approval is required, request approval for that task/consultation before dispatch rather than inspecting additional files or assuming consent.
 - Any effective advisor route resolving to the GPT-6.1 Sol model family, at any provider or effort, requires explicit user approval scoped to that named task and consultation.
 - When approval is required, tell the user the role (`task-advisor`), task and consultation IDs, approval requirement, and blocker/escalation reason (without model/provider names or effort values).
 - Approval is one-use and bound to that task/consultation pair. Silence, prior approval, urgency, or failure is not consent.

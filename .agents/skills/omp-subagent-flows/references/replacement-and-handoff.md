@@ -7,7 +7,7 @@ This protocol applies whenever an active subagent is paused, stopped, replaced, 
 ## 1. Main-Owned Supervision & Evaluation Checkpoints
 
 - With the user-disabled soft request budget, Main supervises attempts through existing completion/message events and the one-shot progress timer; do not reinstate a fixed request, elapsed-time, or token cutoff in prompts.
-- Continue an active attempt while it adds discriminating evidence or completes remaining criteria. Workers do not voluntarily submit unfinished work merely because a request or token count was reached.
+- Continue while evidence improves within the authorized review allowance. Keep a live worker/reviewer pair for corrections; ordinary clarification needs no replacement or pause handoff. Apply `evidence-review-cycle.md` for default-two/conditional-third continuation and early gate reconsideration; do not replace an agent to evade an owner decision.
 - **Evaluation checkpoint (~4–5 progress exchanges):** After roughly 4–5 matched progress exchanges on an attempt, Main explicitly reassesses progress, blocker, and next safe action:
   - Continue with a concrete reason.
   - Narrow the remaining brief without dropping acceptance criteria.
@@ -28,6 +28,7 @@ This protocol applies whenever an active subagent is paused, stopped, replaced, 
   - Never use a plan file, `local://`, another project's artifacts, or a global home log.
 - **Required contents:**
   - `task_id`, `attempt_id`, runtime `agent_id`, and assigned role.
+  - `review_cycle_id`, current/consumed `review_round`, criterion reference, per-round outcomes, any Main authorization for round 3 and any owner authorization for a further cycle.
   - Goal and acceptance criteria (satisfied vs remaining).
   - Current state, changed paths, and ownership (including unrelated user changes).
   - Decisions and rationale.
@@ -53,11 +54,8 @@ This protocol applies whenever an active subagent is paused, stopped, replaced, 
 
 ---
 
-## 4. Pauses, Resumptions & Tier Reassessment
+## 4. Pauses, Resumptions & Owner Decisions
 
-- **Pause/Resume:** A paused attempt resumes on the same attempt ID when the user explicitly authorizes resumption; resume requires no replacement handoff and no new async job.
-- **Two-Silver-attempt route reassessment:** After two Silver implementation/correction attempts on the same task leave criteria unmet, Main reassesses the route before launching another attempt:
-  - Main MAY propose Gold when the remaining obstacle is reasoning, root cause, design, or integration.
-  - Main switches only within the user's routing authority or after asking.
-  - Missing inputs, access, or external dependencies must be resolved rather than disguised as a model problem.
-  - Count worker attempts, not tool retries or progress messages. There is no mandatory tier ladder or automatic Gold promotion.
+- **Pause/Resume:** A still-live attempt paused for the owner resumes on the same attempt ID only after explicit authorization. Ordinary waiting for reviewer feedback is not an owner pause. An ended job cannot be resumed; use a replacement with saved handoff/history.
+- **Review continuation:** Follow `evidence-review-cycle.md`; count assessed candidates, not messages or agent launches. Main may authorize a third round only on evidence of progress and a bounded correction/check. Otherwise stop for the owner after round 2; after round 3 without PASS, always stop. Preserve handoff/report and full criterion-versus-result status.
+- Only owner approval changes criteria or starts a further bounded cycle after the allowance is exhausted. Link earlier outcomes; role changes, replacement and reopening never reset counts. Early quantitative-gate concerns may require owner input before these limits.

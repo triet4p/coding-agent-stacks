@@ -3,6 +3,8 @@
 **Sprint:** <Sprint ID>  
 **Task and acceptance criterion:** <Task ID and concise criterion>  
 **Attempt:** <current attempt ID>
+**Review cycle / round:** <assigned cycle ID and round; round 3 needs Main's authorization reference; omit without evidence gate>
+**Criterion reference:** <current agreed requirements and any explicit owner-approved revision>
 
 ## Worker Result
 
@@ -21,7 +23,7 @@
 
 ### Outcome
 
-- **Status:** `implementation_complete` / `partial` / `blocked`
+- **Status:** `ready_for_review` / `implementation_complete` / `partial` / `blocked`
 - **Observable result:** <what changed and what the evidence actually shows>
 - **Remaining criteria/blocker:** <none, or concise concrete detail>
 - **Changed files:** <paths and reasons>
@@ -31,6 +33,7 @@
 - **Command or scenario and observed result:** <exactly what was run/observed, or `Not run` with the assignment reason>
 - **Regression test:** <actual result, or why no permanent test was warranted / was not assigned>
 - **Limitations:** <concrete evidence gap or `None`; documentation/workflow checks are instruction cross-reference checks, not invented automated tests>
+- **Targets versus observations:** <for numeric criteria: target, observed result and measurement conditions; distinguish unmet requirements from proposed targets>
 
 ### Commit Status
 
@@ -44,6 +47,7 @@
 - **Evidence review:** <assigned or not assigned; if assigned, reviewer-owned report path and verdict>
 - **Frozen-snapshot manifest:** <required only when a full-route checkpoint is planned; reviewer-owned manifest path, otherwise `Not required`>
 - **Full-route checkpoint:** <assigned or not planned; if assigned, executor-owned record path and observed status>
+- **Round outcomes / continuation:** <reviewer-owned outcomes, Main's round-3 authorization if granted, or owner decision required; approval reference for changed criteria or further cycles>
 
 ### Separate Handoff File
 

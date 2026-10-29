@@ -68,6 +68,17 @@ Each replaced file is backed up first under the corresponding `~/.agents/.instal
 
 Unrelated files are preserved; the installer does not remove old or custom definitions. Installation is a file copy, not a symlink. Repeat the installer after obtaining repository updates. Filesystem failures can leave a partially applied installation; resolve the error and rerun, using the printed backups if necessary.
 
+### Sync back from home
+
+If the installed payload under `$HOME` was edited directly, copy it back into this repository with:
+
+```powershell
+.\sync-from-home.ps1 -WhatIf
+.\sync-from-home.ps1
+```
+
+The script reads the same three roots in the opposite direction (home to repository), copies new or changed files, and skips identical ones. The home directory is never written to. Repo-only files that no longer exist at home are reported and left alone unless `-Prune` is passed. The local config (`~/.omp/agent/config.yml`) is never synced back; update `.omp/agent/config.example.yml` by hand when the shareable preset itself changes. Review the result with `git status`/`git diff` before committing.
+
 ## OMP workflow
 
 Worker routing is user-controlled. Before dispatch, Main uses `ask` unless you already selected a role or granted routing authority for a task, batch, session, or sprint. The proposal includes subagent role, task fit, quota observed or `unknown`, workflow and commit permission together. Gold remains eligible for medium tasks; neither Gold nor Silver is an automatic default. Chat, asks, briefs and saved records identify subagents by role/type and required work IDs only, never model/provider names, selectors or effort values.

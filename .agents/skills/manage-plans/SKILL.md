@@ -24,6 +24,8 @@ Use plans for large tasks, features, or bugs that need durable scope and sequenc
 - **Purpose:** This file contains the detailed breakdown of tasks for a specific sprint. It should be created at the start of a sprint and updated as work progresses.
 - **Content:** Sprint goal, acceptance criteria, ordered atomic tasks, and current status. Status per task: `[ ]` pending / `[~]` in progress / `[x]` done. Record the chosen lightweight or full workflow and any required review/commit boundary concisely; a sprint label does not require full-flow gates.
 - **What is an Atomic Task?** An atomic task is a task that focuses on a single concern and can be completed in one focused implementation step. If a task touches more than one concern, it should be split into multiple atomic tasks.
+- Separate agreed acceptance requirements from proposed research/performance targets; record numeric targets with their measurement conditions and approval status. Do not invent hard gates from aspirational estimates. Existing assigned gates remain binding until the owner explicitly changes them.
+- In `omp-subagent-flows`, follow `skill://omp-subagent-flows/references/evidence-review-cycle.md` when review or early quantitative-gate reconsideration applies. Two rounds are authorized by default; Main may grant a third only for evidenced progress and a bounded fix/check. Otherwise ask the owner after round 2; after round 3 without PASS, stop. Keep `[~]` with `blocked: owner_decision_required` when needed. Record owner-approved criterion changes with old/new requirements and rationale; detailed round records and Main's extension rationale stay outside the plan.
 
 *Notes*: You can view an example of template in [_SPRINT_PLAN_TEMPLATE.md](./references/_SPRINT_PLAN_TEMPLATE.md).
 

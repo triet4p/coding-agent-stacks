@@ -8,6 +8,7 @@
 - Added `.omp/agent/config.example.yml` as an optional, shareable OMP agent config preset.
 - Added `designer` subagent definition (`google-antigravity/gemini-3.8-flash:high`) specialized for UI/UX construction, visual audit, image generation, diagrams, and vision inspection.
 - Added `researcher` subagent definition (`google-antigravity/gemini-3.8-flash:high`) specialized for deep technical and web research, documentation verification, API updates, and paper discovery.
+- Added `sync-from-home.ps1` to copy new or changed rules, skills, and subagent definitions from the home directory back into the repository, with preview mode and identical-file skipping; the home directory is never written to.
 
 ### Changed
 
