@@ -2,12 +2,14 @@
 
 Main dispatches a `scout` when a diagnostic pass needs facts Main must not
 collect by reading source itself. A scout gathers evidence; it never
-diagnoses, decides, or implements.
+diagnoses, decides, or implements. A scout answers either a Main-assigned
+question or a paired advisor's top-up question sent directly via
+`write agent://<id>`; in both cases the assignment, scope, and result
+channel are identical.
 
 ---
 
 ## 1. When to dispatch
-
 - Dispatch only after a diagnostic pass identified a concrete missing fact
   that blocks the next decision (which discriminating test to suggest,
   whether to narrow/replace, or what to ask the owner).
@@ -15,8 +17,9 @@ diagnoses, decides, or implements.
   supports a decision, when the worker can cheaply observe the fact itself,
   or as a substitute for reading the worker's own artifact.
 - At most one scout per attempt at a time; at most two scout dispatches per
-  progress exchange. A scout never justifies delaying an overdue owner
-  escalation.
+  progress exchange. A top-up for an active consultation counts as that one
+  scout and stays inside the consultation scope Main set at pairing. A scout
+  never justifies delaying an overdue owner escalation.
 
 ## 2. Assignment contract
 
@@ -27,12 +30,12 @@ Each scout assignment carries exactly one question plus its bounds:
 - Explicit `read_scope`: allowed paths/ranges or grep patterns. No scope
   means no dispatch.
 - A result budget: at most a handful of files, a few cited lines each.
-- The assigned output root when non-project work applies; otherwise the
-  scout returns its pack to Main and writes no record.
+- The scout returns its pack to whoever asked — Main for an assigned
+  question, the paired advisor directly (CC Main) for a top-up — and writes
+  no record. The assigned output root applies for non-project work.
 
 ## 3. Scout boundaries
-
-- Read-only on the assigned scope. Do not read `history://`, `agent://`, session logs, full trajectories, or anything outside the assigned scope. Do not run commands, edit or write files, spawn agents, or contact the worker. The only reads permitted are the mandatory `~/.agents/rules/*` reads plus the assigned scope.
+- Read-only on the assigned scope. Do not read `history://`, `agent://`, session logs, full trajectories, or anything outside the assigned scope. Do not run commands, edit or write files, spawn agents, or contact the worker directly; top-up questions arrive from the paired advisor via `write agent://<id>` and stay inside the assigned consultation scope. The only reads permitted are the mandatory `~/.agents/rules/*` reads plus the assigned scope. Never accept a top-up that widens the scope — report it to Main instead.
 - Return an evidence pack, not a diagnosis: observed facts with exact
   `file:line` citations, quoted lines where decisive, and an explicit
   statement of what was not found within scope. No conclusions, no
@@ -51,6 +54,7 @@ Each scout assignment carries exactly one question plus its bounds:
   unavailable and decide on current evidence rather than redispatching
   immediately.
 - A scout fills no advisor, reviewer, or checkpoint slot permanently, but
-  counts toward the two-active-subagent limit while running.
+  counts toward the three-active-subagent limit while running.
 - Do not chain scouts speculatively. Each new dispatch needs a fresh
-  diagnostic reason, not merely an inconclusive prior pack.
+  diagnostic reason — a Main diagnostic-pass question or one concrete
+  advisor-requested observation — not merely an inconclusive prior pack.

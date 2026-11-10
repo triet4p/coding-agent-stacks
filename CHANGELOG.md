@@ -24,3 +24,5 @@
 - Enforced strict minimal context boundaries and pointer delegation for the Main session, eliminating preflight reads of subagent prompt bodies, worker execution skills, codebase files, and past sprint plans; handoffs between workers and reviewers transfer IDs, paths, and history URIs only.
 - Removed cost/quota reporting from routing asks, worker briefs, task summaries, and orchestrator output; routing now decides on task fit alone.
 - Made Main a diagnostic orchestrator: each progress reply runs a stall/progress/blocked pass against a per-attempt supervision note, with targeted probes, bounded read-only `scout` evidence gathering, and worker- or Main-initiated `task-advisor` consultations instead of mechanical forwarding.
+- Required a current `scout_pack` before every `task-advisor` consultation and paired advisor and scout for direct top-up exchanges within the consultation scope; raised the concurrency limit to three active subagents.
+- Reassigned worker/advisor model settings after the Antigravity provider outage.

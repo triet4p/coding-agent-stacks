@@ -15,7 +15,7 @@ This protocol applies when Main brokers diagnostic advice to a fresh, non-blocki
   - Bounded relevant evidence/snippets.
   - Tried hypotheses and their results (or an explicit statement that none were safely tested yet).
   - Constraints and one exact actionable question.
-- Do not send full conversations, trajectories, histories, logs, or unrelated context. Workers never spawn advisors or change roles/models/config/depth themselves.
+- Every consultation also carries a current `scout_pack` for the same blocker: cited facts with exact `file:line` references gathered by a `scout` under `references/scout.md`. When the worker's own evidence already includes bounded code excerpts with paths and line ranges, that evidence counts as the pack and no separate scout is needed. Otherwise Main dispatches the scout first and attaches its pack; never broker an advisor on a thin request alone.
 
 ---
 
@@ -24,15 +24,15 @@ This protocol applies when Main brokers diagnostic advice to a fresh, non-blocki
 - The timer's `advisor_offer` ("Bạn cần advisor gì không?") is part of the existing progress request, not a separate message.
 - `advisor_needed: false` is a cheap decline and triggers no follow-up.
 - `advisor_needed: true` without the complete request payload is pending interest, not a consultation; it never launches an advisor. The worker may add the complete request to its next normal progress reply or send one qualified request directly.
-- **Deduplication:** At most one consultation per worker and two active subagents total. Omit advisor offers while a request, interest, consultation, scout, or evidence review is active. A live worker/reviewer pair fills both slots; an advisor cannot bypass the continuation/owner-decision policy in `evidence-review-cycle.md`. A scout is evidence gathering, not a substitute consultation: do not broker an advisor merely because a scout pack was inconclusive.
+- **Deduplication and top-up pairing:** at most one consultation per worker and three active subagents total. A consultation always runs after its initial `scout_pack`: dispatch the scout first, then broker the advisor with the pack attached. Main pairs the two by exchanging their runtime IDs in both briefs. When the pack is insufficient, advisor and scout talk directly via `write agent://<id>` — one concrete missing observation at a time, matched on task/attempt/consultation/scout IDs, answered with a cited pack, CC'd to Main's parent-visible channel. At most two advisor↔scout rounds per consultation; then the advisor returns a diagnosis with explicit unverified gaps instead of asking again. No second advisor, reviewer, or checkpoint executor runs concurrently with a worker-advisor-scout trio. An advisor cannot bypass the continuation/owner-decision policy in `evidence-review-cycle.md`. Do not start a second consultation merely because the first advice plus its pack was inconclusive — resolve it with the worker's test result or genuinely new discriminating evidence first.
 - Before asking again after a consultation, the worker must first try relevant advice and record the observed result, or provide genuinely new discriminating evidence.
 
 ---
 
 ## 3. Dispatch & Result Handling
 
-- Main brokers a qualified request to a fresh `task-advisor` sibling using `functions.task` with explicit `agent: "task-advisor"`, `task`, and `solutionSpace`.
-- Main forwards only the bounded request. While it is pending, the worker continues only independent safe work; otherwise it waits for an event.
+- Main brokers a qualified request plus its initial `scout_pack` to a fresh `task-advisor` sibling using `functions.task` with explicit `agent: "task-advisor"`, `task`, and `solutionSpace`, including the paired scout's runtime ID and the consultation scope the top-up must stay inside. The pack is part of the brokered request, not a separate message. Follow-up top-ups flow directly between advisor and scout; Main monitors the CC'd messages but does not relay.
+- Main forwards the bounded request with the attached pack. While the consultation is pending, the worker continues only independent safe work; otherwise it waits for an event.
 - Advice is diagnostic only, never implementation evidence, approval, or a gate verdict; the worker independently tests relevant advice and records the result.
 - Before review, checkpoint execution, or replacement, Main resolves or explicitly cancels every outstanding consultation and invalidates its IDs. Worker completion, cancellation/replacement, and gate transition take precedence over late advisor output.
 

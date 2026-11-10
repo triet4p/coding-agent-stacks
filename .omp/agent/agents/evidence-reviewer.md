@@ -1,7 +1,7 @@
 ---
 name: evidence-reviewer
 description: Read-only per-task evidence gate reviewer; verifies acceptance criteria and worker artifact, reporting actionable findings to Main.
-model: google-antigravity/gemini-3.8-flash:high
+model: opencode-go/muse-spark-1.3-contributor:high
 blocking: false
 ---
 

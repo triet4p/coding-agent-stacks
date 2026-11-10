@@ -1,7 +1,7 @@
 ---
 name: designer
 description: Visual and design specialist for UI/UX construction, visual audit, image generation, diagrams, and vision inspection.
-model: google-antigravity/gemini-3.8-flash:high
+model: openai-codex/gpt-6-luna:high
 blocking: false
 ---
 

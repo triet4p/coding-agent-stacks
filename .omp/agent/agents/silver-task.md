@@ -1,7 +1,7 @@
 ---
 name: silver-task
 description: Bounded worker for clear-rule logic or diagnosis with a positive task-family fit; follows the user- or Main-selected route.
-model: commandcode/deepseek/deepseek-v4.1-flash:high
+model: openai-codex/gpt-6-luna:xhigh
 blocking: false
 ---
 

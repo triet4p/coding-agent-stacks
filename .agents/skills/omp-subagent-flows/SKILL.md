@@ -49,7 +49,7 @@ Main selects the route for each task or atomic batch before dispatch, repeats it
 
 ## Invariants
 
-1. Keep at most **two active subagents total**, including implementation workers, reviewers, advisors, scouts, and checkpoint executors.
+1. Keep at most **three active subagents total**, including implementation workers, reviewers, advisors, scouts, and checkpoint executors. The standard diagnostic trio is one worker plus one advisor plus one scout for top-ups.
 2. Planning remains in the current main session and uses the **exact current model**. Never delegate plan creation or switch models for it.
 3. Start each task with a fresh worker; keep that worker available for direct reviewer feedback and corrections. Replace only an ended/unavailable worker or for a concrete reason, preserving handoff/history and review counts. Main owns routing and continuation within user authority; no role is a default and no request/token count ends an attempt.
 4. Run one sprint implementation task at a time. An `evidence-reviewer` runs only when its gate is assigned: always on the full route, and on the light route only when Main assigns one. Never batch task-level evidence reviews. A full-route project task also requires a separate Bronze-only exact-snapshot checkpoint at the pre-agreed task or batch boundary before the next independent project task; only a predeclared shared atomic batch, declared and approved as one checkpoint boundary before implementation, may continue through its included tasks before that single checkpoint.
@@ -58,7 +58,7 @@ Main selects the route for each task or atomic batch before dispatch, repeats it
 7. The installed flow definitions for `bronze-task`, `silver-task`, `gold-task`, `scout`, `task-advisor`, `evidence-reviewer`, `deep-reviewer`, and checkpoint-executor `bronze-task` assignments are preconfigured `blocking: false`. Main trusts the runtime harness and dispatches directly by role name without pre-reading agent definition bodies. If the runtime reports synchronous execution or no async job manager, report the condition and wait for authorized resolution.
 8. Use completion events, meaningful blocker messages, and the adaptive progress timer for supervision; no separate duration-based proactive notice is required. On every matched progress reply or blocker message, Main runs the diagnostic pass in `references/progress-supervision.md` before deciding to continue, probe, suggest, scout, advise, narrow, or escalate.
 9. Every subagent enumerates and reads all regular files under `~/.agents/rules/*` before substantive work, including corrections and replacements. Apply relevant rules at their proper precedence; report conflicts or inaccessible files instead of silently ignoring them.
-10. Main retains orchestration dispatch authority. Among subagents, only `researcher` may spawn children, freely choosing only `bronze-task` or `researcher` within its assigned research scope without another role-selection ask. Child researchers inherit this permission; all other subagents cannot spawn. Descendants count toward the two-active-subagent limit. This grants no additional scope or commit/push authority. Separately, Main may dispatch short-lived read-only `scout` agents for bounded evidence gathering under `references/scout.md`; scouts count toward the two-active-subagent limit and never spawn.
+10. Main retains orchestration dispatch authority. Among subagents, only `researcher` may spawn children, freely choosing only `bronze-task` or `researcher` within its assigned research scope without another role-selection ask. Child researchers inherit this permission; all other subagents cannot spawn. Descendants count toward the three-active-subagent limit. This grants no additional scope or commit/push authority. Separately, Main may dispatch short-lived read-only `scout` agents for bounded evidence gathering under `references/scout.md`; scouts count toward the three-active-subagent limit and never spawn.
 11. `designer` is optional, outside this flow, and invoked only when the user explicitly requests it; never add it as an automatic worker or gate.
 12. Propose quantitative gate reconsideration as soon as credible evidence questions its assumptions, feasibility or tradeoffs; do not wait for the round limit or proof of impossibility. Pause gate-specific optimization, not independent safe work. Only the owner can revise acceptance criteria.
 
@@ -155,7 +155,7 @@ Keep required records readable and concise outcome links in any existing plan. N
 
 ## Scheduling rules
 1. **Planning:** Main resolves scope, route, acceptance and any needed plan.
-2. **Implementation:** one active implementation worker; an optional qualified advisor or one bounded scout must fit the two-active limit.
+2. **Implementation:** one active implementation worker; an optional qualified advisor plus one bounded scout for evidence top-ups must fit the three-active limit.
 3. **Assigned evidence review:** worker ready and source frozen; one matching reviewer may collaborate directly with the still-active worker.
 4. **Correction:** reuse the live pair within authorized rounds; Main may grant the conditional third round, otherwise stop for the owner. Evidence-backed gate doubts may require an earlier owner decision.
 5. **Full-route checkpoint:** matching PASS and frozen snapshot; one fresh Bronze executor, no next independent task beyond the agreed boundary.
@@ -163,7 +163,7 @@ Keep required records readable and concise outcome links in any existing plan. N
 7. **Assigned deep review:** all prerequisite assigned gates passed; one differential reviewer.
 8. **Complete:** criteria, verification and only the assigned gates satisfied; required jobs completed or explicitly cancelled.
 
-Never exceed two active subagents total. Use completion/message events and `functions.wait` only when otherwise blocked; no polling or worker eval wait/barriers. An observation timer is a separate finite shell job, never a worker deadline. Keep pending gates in progress.
+Never exceed three active subagents total. Use completion/message events and `functions.wait` only when otherwise blocked; no polling or worker eval wait/barriers. An observation timer is a separate finite shell job, never a worker deadline. Keep pending gates in progress.
 
 Routine role/dispatch, timer, progress and retry metadata stays in chat/trace, not sprint plans; never include model metadata in assistant-authored records. Save genuinely needed handoff or temporary supervision state separately under the assigned repository's `artifacts/`. Plans retain scope, acceptance, current status, milestones, durable decisions/blockers and concise verified outcome references only.
 

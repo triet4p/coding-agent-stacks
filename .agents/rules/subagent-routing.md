@@ -23,7 +23,7 @@
 ## Child delegation, scout dispatch, and optional specialists
 
 - Main retains orchestration dispatch authority. Among subagents, only `researcher` may spawn children, and only `bronze-task` or `researcher`. Researcher may choose these roles freely within its assigned research scope without another routing ask; child researchers inherit the same permission, while Bronze children cannot spawn. All other subagents must not spawn children.
-- Separately, Main may dispatch short-lived read-only `scout` agents for bounded evidence gathering under `skill://omp-subagent-flows/references/scout.md`. A scout answers one Main-assigned question inside an explicit read scope, returns a cited evidence pack, and ends; it never diagnoses, spawns, commits, or contacts the worker. Scouts count toward the two-active-subagent limit while running.
+- Separately, Main may dispatch short-lived read-only `scout` agents for bounded evidence gathering under `skill://omp-subagent-flows/references/scout.md`. A scout answers one Main-assigned question, or one paired advisor's top-up inside its consultation scope, and returns a cited evidence pack directly (CC Main); it never diagnoses, spawns, commits, or contacts the worker. Main pairs advisor and scout by exchanging runtime IDs; top-ups stay inside the assigned scope and cap at two rounds per consultation. Scouts count toward the three-active-subagent limit while running.
 - `designer` is optional and outside the sprint flow. Invoke it only on the user's explicit request; do not insert it as an automatic worker, advisor, scout, or gate.
 
 ## Main session minimal context & pointer delegation

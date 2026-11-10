@@ -1,7 +1,7 @@
 ---
 name: gold-task
 description: General-purpose reasoning worker, including medium tasks; selected for fit within the user's routing authority, not as an automatic default.
-model: opencode-go/muse-spark-1.3-contributor:high
+model: opencode-go/deepseek-v4.1-flash:high
 blocking: false
 ---
 
