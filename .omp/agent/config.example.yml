@@ -1,23 +1,30 @@
+setupVersion: 3
 modelRoles:
-  plan: openai-codex/gpt-6.1-sol:high
-  smol: google-antigravity/gemini-3.5-flash-lite:high
-  slow: openai-codex/gpt-6.1-sol:high
-  vision: google-antigravity/gemini-3.8-flash:high
-  designer: google-antigravity/gemini-3.8-flash:high
+  plan: openai-codex/gpt-6.2-sol:high
+  smol: opencode-go/mimo-v2.6-flash:medium
+  slow: openai-codex/gpt-6.2-sol:medium
+  vision: openai-codex/gpt-6-luna:high
+  designer: openai-codex/gpt-6-luna:high
   commit: opencode-go/muse-spark-1.3-contributor:medium
   tiny: opencode-go/muse-spark-1.3-contributor:medium
   task: openai-codex/gpt-6-luna:xhigh
   review: opencode-go/glm-5.3-flash:high
-  critic: openai-codex/gpt-6-astra:medium
-  advisor: openai-codex/gpt-6.1-sol:medium
+  critic: openai-codex/gpt-6.2-astra:medium
+  advisor: openai-codex/gpt-6.2-sol:high
   default: opencode-go/muse-spark-1.3-contributor:high
   web: openai-codex/gpt-6-luna:high
-  judge: deepseek/deepseek-flash:high
-  image: google-antigravity/gemini-3-pro-image
+  judge: opencode-go/mimo-v2.6-flash:low
+  image: openai-codex/gpt-image-2
 cycleOrder:
   - smol
   - default
   - slow
+  - vision
+  - plan
+  - critic
+  - designer
+  - image
+  - web
 advisor:
   enabled: false
   syncBacklog: "off"
@@ -29,29 +36,40 @@ task:
     - reviewer
     - security-reviewer
     - sonic
-  agentPrewalk:
-    {}
+    - task
+    - seance
+  agentPrewalk: {}
   agentModelOverrides:
     reviewer: openai-codex/gpt-5.6-sol:medium
+    bronze-task: opencode-go/beam-free:high
+    silver-task: opencode-go/hy4-flash-free:high
+    researcher: openai-codex/gpt-6.1-terra:high
   softRequestBudget: 0
   maxRecursionDepth: 1
   maxEffort: max
   enableLsp: false
   completionProbe: false
+  showResolvedModelBadge: true
+dev:
+  autoqaConsent: granted
 codexResets:
-  autoRedeem: "no"
+  autoRedeem5h: "no"
+  autoRedeemWeekly: "no"
 retry:
-  maxRetries: 5
+  maxRetries: 10
+  modelFallback: false
+  waitForUsageReset: true
 tools:
-  artifactSpillThreshold: 20
+  artifactSpillThreshold: 30
   artifactTailBytes: 10
   artifactHeadBytes: 10
   outputMaxColumns: 512
   artifactTailLines: 250
 async:
   pollWaitDuration: 5m
+  widgets: false
 read:
-  defaultLimit: 200
+  defaultLimit: 300
 goal:
   statusInFooter: false
 theme:
@@ -61,3 +79,27 @@ steeringMode: one-at-a-time
 autoResume: true
 generate_image:
   enabled: true
+display:
+  cacheMissMarker: true
+ask:
+  timeout: 120
+compaction:
+  methodOrder:
+    - remote
+    - snapcompact
+    - handoff
+    - soft
+    - shake
+  thresholdPercent: 70
+  enabled: true
+readLineNumbers: false
+astGrep:
+  enabled: true
+github:
+  enabled: true
+statusLine:
+  compactThinkingLevel: false
+autolearn:
+  enabled: false
+update:
+  auto: false

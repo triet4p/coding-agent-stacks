@@ -42,6 +42,7 @@ This protocol applies only when executing a required checkpoint on the **Full ro
    - The executor writes these observations and the PASS reference in its own checkpoint record; a byte-for-byte index comparison does not replace semantic staging checks.
 6. A hook/signing/identity rejection, failed commit, changed base/ref, mismatch with the reviewed snapshot, unexpected staged diff, or uncertain result leaves the task `commit_pending`. Do not bypass the failure or discard user state. Resolve ownership/cause and retry only while the same approved snapshot and expected base/ref remain valid; changed content requires fresh evidence PASS.
 7. Main decides success only after matching that report to its authorization and records a concise status/reference in the plan; Main never writes the checkpoint record.
+8. Doc updates landing after this commit go in a separate follow-up commit under the same authorization, never as an amend to this checkpoint; see `~/.agents/rules/docs-sync.md`. The follow-up covers only owned doc paths and leaves no owned residue in `git status`.
 
 ---
 

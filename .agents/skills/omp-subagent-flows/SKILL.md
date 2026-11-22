@@ -98,6 +98,7 @@ Detailed handoffs and temporary supervision state are separate attempt-scoped fi
 ### Main's event handling
 
 - Main reacts to delivered job-completion and agent-message events. Do not repeatedly poll status. Use `functions.wait` only when Main is otherwise blocked with no useful work, and only to wait for an event; do not invent a timeout argument or use it as a timer.
+- Stay quiet while agents run: after launching async agent(s), use `functions.wait` when otherwise blocked without emitting a chat turn first. Never end a turn with a dispatch-status note ("spawned worker…", "waiting for…") while results are pending; the launch receipt already lives in the trace. Speak only for routing asks, genuine approval/blocker questions, owner escalations, and completion reports.
 - Never supervise workers with eval `handle.wait` or an eval barrier: aborting those waits can cancel the jobs being waited on. Do not attach worker lifetime to a Main-turn wait.
 - A Main/user interrupt (including Escape where applicable) interrupts Main's current turn; it is not an explicit cancellation of a detached worker. To stop a specific worker, use the explicit cancellation control for that worker's async job (for an exposed process job, `proc://<job-id>/kill`). Do not confuse cancelling a job with interrupting Main.
 - Do not promise detached-job durability across process exit or automatic Main resumption after a user interrupt. A subsequent user prompt may be needed for Main to process queued results.
@@ -119,7 +120,7 @@ Read `skill://manage-plans` for work needing durable planning. Main creates or u
 
 ### 2. Select and launch a worker
 
-1. Apply the routing ask and scoped-authority rules above. Trust the harness to resolve definitions and overrides without preflight file reads. Bronze, Silver and Gold are selectable according to fit; uncertain Silver/Gold fit is a user tradeoff, not an implicit Gold promotion.
+1. Apply the routing ask and scoped-authority rules above. Trust the harness to resolve definitions and overrides without preflight file reads. Bronze, Silver and Gold are selectable according to fit; uncertain Silver/Gold fit is a user tradeoff, not an implicit Gold promotion. Main never implements task content itself: dispatch the selected role asynchronously. Main's own edits are limited to plans and its separate supervision files; the only implementation Main does directly is explicitly user-requested workflow-file edits, which are Main's own direct work outside sprint orchestration.
 2. Brief one fresh async worker with task/attempt IDs, criteria, scope, route/gates, selected role/basis, and relevant history refs. For assigned review, include cycle/round and [evidence review cycles](references/evidence-review-cycle.md); keep the worker alive at `ready_for_review`. Include explicit repository/git-dir, worktree, `-C` root and ref, or non-project designation and output root.
 3. State commit permission or its absence. A light worker may commit only its own verified scope when explicitly authorized with staging ownership; push needs separate authorization. If review is assigned before commit, obtain its matching PASS first. Mixed ownership or unrelated staged changes must not enter the commit: use only safely isolated, wholly owned content with scoped standard porcelain; otherwise report `commit_pending` without altering user state. Never blanket-stage, bypass hooks/signing, amend or rewrite history.
 4. Require a worker summary only when an assigned gate or meaningful evidence preservation needs one. Give its exact repository-local artifact path then; ordinary light work may return a compact verified result without a template or manifest. Keep an existing plan task [~] until its assigned criteria and gates are satisfied.
@@ -149,7 +150,7 @@ Accept only its matching completed verdict. Actionable findings reopen tasks und
 
 ### 5. Complete and retire
 
-Main marks [x] only after acceptance and material verification are supported, every assigned review has passed, any assigned commit has succeeded, every required full-route checkpoint has succeeded, and any assigned deep review has no actionable findings. Verified light work may finish uncommitted when no commit was assigned; failed or unavailable assigned commits remain `commit_pending`.
+Main marks [x] only after acceptance and material verification are supported, every assigned review has passed, any assigned commit has succeeded, every required full-route checkpoint has succeeded, and any assigned deep review has no actionable findings. Apply `~/.agents/rules/docs-sync.md` before marking `[x]`: required `README.md`/summary/`CHANGELOG.md` updates are part of the accepted candidate and any assigned commit/checkpoint scope, and the plan carries the status/outcome link. Doc edits landing after an assigned commit/checkpoint are committed immediately as a separate commit under the same authorization without re-asking (light worker, or a fresh `bronze-task` on the full route); the worktree must hold no owned residue. Verified light work may finish uncommitted when no commit was assigned; failed or unavailable assigned commits remain `commit_pending`.
 
 Keep required records readable and concise outcome links in any existing plan. No superseded attempt may advance a gate. End or explicitly cancel jobs that must not continue; Main interruption is not job cancellation. No extra review, checkpoint, deep review or artifact is created just to retire a light task.
 
@@ -169,7 +170,7 @@ Routine role/dispatch, timer, progress and retry metadata stays in chat/trace, n
 
 ## Orchestrator output
 
-Report the current task/attempt, selected route and subagent role, meaningful outcome/blocker, matching assigned gate results and actual record refs, and completion status. Do not report model/provider names, selectors or effort values, or fabricate successful application of an override. Keep detailed implementation/review/Git evidence in its owner's record; never copy full transcripts or model metadata into new output or plans.
+Report the current task/attempt, selected route and subagent role, meaningful outcome/blocker, matching assigned gate results and actual record refs, and completion status. Keep it to one compact report per event that needs the user: no per-dispatch narration, no restated receipts, no play-by-play while agents are still running. Do not report model/provider names, selectors or effort values, or fabricate successful application of an override. Keep detailed implementation/review/Git evidence in its owner's record; never copy full transcripts or model metadata into new output or plans.
 
 ## Change history
 

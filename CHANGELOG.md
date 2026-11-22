@@ -9,6 +9,8 @@
 - Added `designer` subagent definition (`google-antigravity/gemini-3.8-flash:high`) specialized for UI/UX construction, visual audit, image generation, diagrams, and vision inspection.
 - Added `researcher` subagent definition (`google-antigravity/gemini-3.8-flash:high`) specialized for deep technical and web research, documentation verification, API updates, and paper discovery.
 - Added `sync-from-home.ps1` to copy new or changed rules, skills, and subagent definitions from the home directory back into the repository, with preview mode and identical-file skipping; the home directory is never written to.
+- Added `workspace.md` workspace-boundary rule: file operations stay in the current workspace, outside reads need user approval, outside writes are forbidden, scratch space lives in `<workspace>/.tmp/`.
+- Added `docs-sync.md` rule: `README.md`, `CHANGELOG.md`, plan status, and affected summaries move with the change; reviewers reject doc-less candidates and sprints stay open while docs are stale.
 
 ### Changed
 
@@ -26,3 +28,6 @@
 - Made Main a diagnostic orchestrator: each progress reply runs a stall/progress/blocked pass against a per-attempt supervision note, with targeted probes, bounded read-only `scout` evidence gathering, and worker- or Main-initiated `task-advisor` consultations instead of mechanical forwarding.
 - Required a current `scout_pack` before every `task-advisor` consultation and paired advisor and scout for direct top-up exchanges within the consultation scope; raised the concurrency limit to three active subagents.
 - Reassigned worker/advisor model settings after the Antigravity provider outage.
+- Made worker delegation mandatory for Main (it never implements sprint task content itself) and imposed quiet orchestration: no dispatch-status chat turns while agents run, one compact report per event that needs the user.
+- Closed the post-commit doc-residue gap: documentation edits landing after an assigned commit or checkpoint are committed immediately as a separate commit under the same authorization, without asking again.
+- Synced `.omp/agent/config.example.yml` with the live agent configuration (model roles, agent overrides, retry/tool/compaction defaults).

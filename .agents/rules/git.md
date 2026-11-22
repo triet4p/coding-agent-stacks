@@ -41,8 +41,8 @@ Examples: `feat/trajectory-immutable`, `fix/umap-cache-key`, `docs/architecture-
 
 ## What not to commit
 
-Never commit:
 - `.venv/`, `__pycache__/`, `*.pyc`, `*.pyo`
+- Workspace scratch `.tmp/` (per `workspace.md`) and its contents
 - `.env` or any file containing secrets or API keys
 - Build artifacts, compiled outputs, or large binary files
 - IDE/editor config (`.vscode/`, `.idea/`) unless agreed upon by the team
