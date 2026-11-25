@@ -11,6 +11,7 @@
 - Added `sync-from-home.ps1` to copy new or changed rules, skills, and subagent definitions from the home directory back into the repository, with preview mode and identical-file skipping; the home directory is never written to.
 - Added `workspace.md` workspace-boundary rule: file operations stay in the current workspace, outside reads need user approval, outside writes are forbidden, scratch space lives in `<workspace>/.tmp/`.
 - Added `docs-sync.md` rule: `README.md`, `CHANGELOG.md`, plan status, and affected summaries move with the change; reviewers reject doc-less candidates and sprints stay open while docs are stale.
+- Added `databricks-slides` skill assets, references, and scripts (example gallery, topology catalog, localization, QA gates, deck check/render scripts).
 
 ### Changed
 

@@ -1,61 +1,78 @@
 # PowerPoint Workflow
 
-Read this file when building a real deck with this skill.
+Read this when building a real PPTX, code slides, or editing generated decks.
 
 ## Authoring path
 
-- If the `Presentations` skill is available, use it for editable PPTX generation and slide render QA.
-- Keep the final deck editable. Do not flatten whole slides into images.
-- Recreate the reference style; do not place the PNG templates as full-slide bitmap backgrounds unless the user explicitly asks for a non-editable mockup.
+- Generate with `python-pptx` (or the `Presentations` skill if available); never flatten slides into images.
+- Start from `assets/deckkit_starter.py`. One tokens module per project; no deck-local colors or type sizes.
+- Recreate the reference style; never place the bundled PNGs as full-slide backgrounds.
+- Keep a page-counter helper (`pg()`) so inserting a slide does not require manual renumbering.
+
+## Template gallery first
+
+Before building a full deck, generate `Template-Gallery.pptx` with one sample per template you intend to use, and approve it visually. Restyling individual slides before the gallery is approved guarantees rework: a token change must regenerate decks, not be hand-patched into them.
 
 ## PowerPoint-safe constraints
 
-- Prefer standard text boxes, rectangles, circles, lines, arrows, tables, and images.
-- Use solid fills or very simple gradients only when they survive Microsoft PowerPoint cleanly.
-- Avoid unusual SVG effects, masks, blend modes, heavy shadows, unsupported filters, or LibreOffice-only behaviors.
-- Stick to installed fonts or common fallbacks. For this skill, default to `Arial` and common mono fonts for code.
-- Keep all icons and illustrations as simple PNG or SVG assets that render consistently.
-- Avoid layouts that depend on pixel-perfect browser CSS behavior.
+- Standard primitives only: text boxes, rectangles, rounded rectangles, ovals, straight connectors, tables, images.
+- Solid fills; no gradients, shadows, blur, blend modes, masks, or SVG filters.
+- Set `shadow.inherit = False` on shapes and remove the theme `<p:style>` element, otherwise Office adds an inherited shadow.
+- Stick to installed fonts: Arial (text), Consolas (code). For CJK, set `a:ea` explicitly.
+- 16:9 at 13.333 × 7.5 in; design at 96 dpi equivalent (1280 × 720).
+- Verify in real PowerPoint, not only LibreOffice.
 
-## Code slide guidance
+## Code slides
 
-- Use a dark code panel inspired by VS Code Dark+.
-- Keep token colors intentionally different:
-  - keywords: blue
-  - strings: orange
-  - numbers: light green or pale yellow
-  - comments: muted gray-green
-  - function and variable names: light text with selective accenting
-- Limit each code slide to one main snippet plus 1-3 short callouts.
+- Mono stack: Consolas → Cascadia Code → Courier New; 13.5–15 pt.
+- One snippet per slide, ≤ 12 lines, ≤ 3 callouts.
+- Dark panel (`#0B1F24`) with four token colors: keyword blue, string orange, number pale green, comment muted.
+- Line numbers are optional; if used, keep them dim (`#5F707A`) and aligned.
+- Never translate code shapes; never let a text-fit heuristic count them.
 
-## Render review loop
+## Editing generated decks
 
-- Render every slide after authoring.
-- Inspect each slide at readable size, not just the contact sheet.
-- Check:
-  - title size and color consistency
-  - body text remains legible at `24 pt`
-  - captions at `22 pt` or `20 pt` are still readable
-  - icons are aligned and visually balanced
-  - code colors remain distinct after export
-  - no crowding near the slide edges
-  - section divider split is clean
-  - ToC slide spacing is even
+- Patch **per slide segment** (marker `# NN`), never a regex that spans the file. A `.*?` patch once removed 15 slides across three decks.
+- After every build: assert `len(prs.slides)` and the marker count.
+- Back up the build file before a batch patch; keep a dated copy of the PPTX.
+- If a patch goes wrong, recover from the session transcript's `write` tool calls instead of reconstructing by hand.
+- Prefer regenerating the deck from the build script over editing the PPTX directly.
+
+## Render loop
+
+1. `python scripts/check_deck.py deck.pptx --expect N` — structure and geometry.
+2. `python scripts/check_layout_budget.py build_deck.py` — repetition budget.
+3. `python scripts/render_slides.py deck.pptx --dpi 100 --out renders/` — PNG per page.
+4. Inspect every page at readable size; fix and re-render the changed pages.
+5. Open in Microsoft PowerPoint once; export a PDF from PowerPoint as the final artifact.
+
+LibreOffice is acceptable for iteration. It is not proof that PowerPoint will render the same. If COM is unavailable, say so in the delivery note.
 
 ## Deck structure checklist
 
-- Cover slide present and visually distinct
-- ToC slide present
-- Every section begins with a divider slide
-- Every content slide maps back to one of the four template families
-- Visual and text density feel balanced across the deck
+- [ ] Cover is visually distinct (dark, eyebrow, chips, mark).
+- [ ] Roadmap/ToC near the start.
+- [ ] One divider per section, each with objective and 3 section chips.
+- [ ] Every content slide maps to one visual family and one topology.
+- [ ] One hero diagram per section.
+- [ ] Summary and end card; references in notes + one appendix.
+- [ ] Decision strip on ≤25% of slides, labels rotated.
 
 ## Failure modes to fix before delivery
 
-- title is black or gray instead of red
-- regular body text drifts away from the `24 pt` baseline without reason
-- too many unrelated icon styles in one deck
-- divider slide looks like a generic content slide
-- ToC looks disconnected from the rest of the theme
-- code block uses proportional fonts or washed-out syntax colors
-- slide looks fine in one renderer but breaks in Microsoft PowerPoint
+| Failure | Check |
+|---|---|
+| Title not ink/red per declared variant | Sample three slides |
+| Body below 18 pt in `training-dense` | Scan all text runs |
+| Text crossing the decision band or footer | `check_deck.py` |
+| Screenshot with a text label over the control | Visual pass |
+| Badge in empty space | Compare badge to the placed image box |
+| Four cards where a trade-off belongs | Topology review |
+| Same template three slides in a row | `check_layout_budget.py` |
+| Code in a proportional font | Font scan on mono shapes |
+| Notes without URL/status/date | Spot-check 10 slides |
+| File opens in LibreOffice but not PowerPoint | Gate 5 |
+
+## Delivery note
+
+State what was verified and what was not: renders inspected, PowerPoint open, decks/slides counts, pending user screenshots, unverified demos. Do not describe unverified states as complete.
