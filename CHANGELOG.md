@@ -12,6 +12,7 @@
 - Added `workspace.md` workspace-boundary rule: file operations stay in the current workspace, outside reads need user approval, outside writes are forbidden, scratch space lives in `<workspace>/.tmp/`.
 - Added `docs-sync.md` rule: `README.md`, `CHANGELOG.md`, plan status, and affected summaries move with the change; reviewers reject doc-less candidates and sprints stay open while docs are stale.
 - Added `databricks-slides` skill assets, references, and scripts (example gallery, topology catalog, localization, QA gates, deck check/render scripts).
+- Added `coding-conventions.md` rule: file budgets with grandfathered god-files frozen, phase-agnostic code, portability, and a mandatory per-project conventions file checked by reviewers.
 
 ### Changed
 
@@ -32,3 +33,4 @@
 - Made worker delegation mandatory for Main (it never implements sprint task content itself) and imposed quiet orchestration: no dispatch-status chat turns while agents run, one compact report per event that needs the user.
 - Closed the post-commit doc-residue gap: documentation edits landing after an assigned commit or checkpoint are committed immediately as a separate commit under the same authorization, without asking again.
 - Synced `.omp/agent/config.example.yml` with the live agent configuration (model roles, agent overrides, retry/tool/compaction defaults).
+- Split over-budget commits into a stack of scoped commits (~800 lines / ~10 files soft cap, ~2000 hard): the same authorization covers the stack, one task may own many commits while acceptance stays per task.

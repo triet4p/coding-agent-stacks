@@ -49,6 +49,12 @@ Examples: `feat/trajectory-immutable`, `fix/umap-cache-key`, `docs/architecture-
 
 Ensure a `.gitignore` covers these before the first commit in any new sub-project.
 
+## Commit budget
+
+- Soft cap ~800 added lines / ~10 files per commit. Over the soft cap: split into a stack of scoped commits, one coherent sub-concern each, bottom-up. The task's original commit authorization covers the whole stack; no re-ask per commit.
+- Hard cap ~2000 added lines in a single commit: needs owner approval, or a replan into smaller tasks.
+- Each stacked commit uses scoped porcelain only, names its sub-concern (`feat(scope): ...`), never amends, never mixes foreign paths. Verify `git status` shows no owned residue at the end (see `docs-sync.md`).
+
 ## Theory deployment
 
 The deploy workflow (`.github/workflows/deploy-latent-anything-theory.yml`) triggers **only** on:

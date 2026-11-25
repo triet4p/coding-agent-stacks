@@ -43,6 +43,7 @@ This protocol applies only when executing a required checkpoint on the **Full ro
 6. A hook/signing/identity rejection, failed commit, changed base/ref, mismatch with the reviewed snapshot, unexpected staged diff, or uncertain result leaves the task `commit_pending`. Do not bypass the failure or discard user state. Resolve ownership/cause and retry only while the same approved snapshot and expected base/ref remain valid; changed content requires fresh evidence PASS.
 7. Main decides success only after matching that report to its authorization and records a concise status/reference in the plan; Main never writes the checkpoint record.
 8. Doc updates landing after this commit go in a separate follow-up commit under the same authorization, never as an amend to this checkpoint; see `~/.agents/rules/docs-sync.md`. The follow-up covers only owned doc paths and leaves no owned residue in `git status`.
+9. If the approved snapshot exceeds the commit budget in `~/.agents/rules/git.md`, land it as a stack of scoped commits (coherent sub-concerns, bottom-up, same authorization), each verified against the approved snapshot; the single checkpoint record covers the whole stack. Small snapshots land as one commit as before.
 
 ---
 
