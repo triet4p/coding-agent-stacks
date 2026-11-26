@@ -5,7 +5,7 @@ model: opencode-go/deepseek-v4.1-flash:high
 blocking: false
 ---
 
-Gold implementation worker for one bounded atomic task, including medium work requiring context, design choices, diagnosis, or integration. Follow the assignment and `skill://implement-atomic-task` for the shared procedure, verification, and advisor requests; Main owns planning, status, and gates.
+Gold implementation worker for one bounded atomic task, including medium work requiring context, design choices, diagnosis, or integration. Follow the assignment and `skill://implement-atomic-task` for the shared procedure, verification, and advisor requests; Main owns routing, status, and gates (planning is delegated to the `plan` subagent).
 
 <scope>
 - Reason about the assigned task's correctness constraints and failure modes before substantial edits; map the applicable interacting invariants only when the task actually contains them.

@@ -13,7 +13,7 @@ Use plans for large tasks, features, or bugs that need durable scope and sequenc
 ### 1. Create or Update Global Plan file
 
 - **File Location:** `docs/PLAN.md`
-- **Purpose:** This file serves as the single source of truth for the overall project plan. It should be updated whenever there are a new sprint plan or changes to existing plans.
+- **Purpose:** The `plan` subagent writes this file from Main's brief. It serves as the single source of truth for the overall project plan. It should be updated whenever there are a new sprint plan or changes to existing plans.
 - **Content:** The file should contain a high-level overview of the project, including current sprint goals, major milestones, and links to detailed sprint plans, not the detailed breakdown of tasks.
 
 
@@ -31,7 +31,7 @@ Use plans for large tasks, features, or bugs that need durable scope and sequenc
 
 ### 3. Update State, Not an Execution Diary
 
-- Main updates the existing task entry only on a meaningful scope/status change, durable decision, real blocker, or verified outcome. Add concise evidence/commit links when useful; do not append one entry per turn.
+- The `plan` subagent owns plan structure (scope, tasks, criteria); Main updates only the existing task entry's status marker and outcome links on a meaningful scope/status change, durable decision, real blocker, or verified outcome. Add concise evidence/commit links when useful; do not append one entry per turn.
 - Never put dispatch receipts, agent/model selection logs, progress requests, timer/wait events, tool retries, copied outputs, or detailed handoffs in `docs/PLAN.md` or `sprint-<N>.md`. Routine coordination stays in chat and trace.
 - If Main or a worker needs to save temporary supervision state, pause/resume state, or a detailed handoff, write a separate task/attempt-scoped file under the authorized repository's `artifacts/` directory. For a sprint, use `artifacts/sprint-<N>/handoffs/` or `artifacts/sprint-<N>/state/`; a standalone task may use `artifacts/<task-id>/`. Never use another project's artifacts, a global home log, or `local://` for these durable files.
 - Apply `~/.agents/rules/docs-sync.md` at task completion and sprint close: content docs move with the change, plan status moves with the gate.

@@ -13,6 +13,7 @@
 - Added `docs-sync.md` rule: `README.md`, `CHANGELOG.md`, plan status, and affected summaries move with the change; reviewers reject doc-less candidates and sprints stay open while docs are stale.
 - Added `databricks-slides` skill assets, references, and scripts (example gallery, topology catalog, localization, QA gates, deck check/render scripts).
 - Added `coding-conventions.md` rule: file budgets with grandfathered god-files frozen, phase-agnostic code, portability, and a mandatory per-project conventions file checked by reviewers.
+- Added `plan` subagent definition (`openai-codex/gpt-6.2-sol:medium`) that owns durable planning and writes plan files directly.
 
 ### Changed
 
@@ -34,3 +35,6 @@
 - Closed the post-commit doc-residue gap: documentation edits landing after an assigned commit or checkpoint are committed immediately as a separate commit under the same authorization, without asking again.
 - Synced `.omp/agent/config.example.yml` with the live agent configuration (model roles, agent overrides, retry/tool/compaction defaults).
 - Split over-budget commits into a stack of scoped commits (~800 lines / ~10 files soft cap, ~2000 hard): the same authorization covers the stack, one task may own many commits while acceptance stays per task.
+- Delegated planning to the async `plan` subagent with no Main content verification; every `task-advisor` consultation now needs explicit user approval, and Main must not resolve diagnostics by guess.
+- Unified `task-advisor` on a single model (`openai-codex/gpt-6.2-sol:high`); removed the lower-tier advisor path.
+- Hardened the advisor approval ask: Main presents its own hypothesis, tried evidence, and necessity level so refusal is informed, with a stated fallback on denial.

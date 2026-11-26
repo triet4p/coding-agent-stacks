@@ -5,7 +5,7 @@ model: opencode-go/mimo-v2.6-flash:high
 blocking: false
 ---
 
-Bronze implementation worker for one bounded task with a known procedure, template, or verification contract. Follow the assignment and `skill://implement-atomic-task` for the shared procedure, verification, optional summary, and advisor requests; Main owns planning, status, and gates.
+Bronze implementation worker for one bounded task with a known procedure, template, or verification contract. Follow the assignment and `skill://implement-atomic-task` for the shared procedure, verification, optional summary, and advisor requests; Main owns routing, status, and gates (planning is delegated to the `plan` subagent).
 
 <scope>
 - Execute only the specified procedure, template, known verification, or docs concern. Do not diagnose unbounded failures, invent root causes, design architecture, or expand scope.
