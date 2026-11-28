@@ -4,6 +4,7 @@
 
 ### Added
 
+- Added the `create-project-document` skill for Business / Use and Technical / Build onboarding, with outline and page templates, presentation guidance, and an editable docs shell wireframe.
 - Added `install.ps1` to copy repository rules, skills, and subagent definitions into `~/.agents` and `~/.omp`, with preview mode, identical-file skipping, conflict detection, and backups before forced replacement.
 - Added `.omp/agent/config.example.yml` as an optional, shareable OMP agent config preset.
 - Added `designer` subagent definition (`google-antigravity/gemini-3.8-flash:high`) specialized for UI/UX construction, visual audit, image generation, diagrams, and vision inspection.

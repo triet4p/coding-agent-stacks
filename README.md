@@ -27,7 +27,7 @@ This does not change the saved execution policy. On systems with PowerShell 7, u
 | Repository payload | Destination |
 | --- | --- |
 | `.agents/rules/` | `~/.agents/rules/` |
-| `.agents/skills/` (including references, assets, and scripts) | `~/.agents/skills/` |
+| `.agents/skills/` (including references, assets, templates, and scripts) | `~/.agents/skills/` |
 | `.omp/agent/agents/` | `~/.omp/agent/agents/` |
 | `.omp/agent/config.example.yml` (enabled by default) | `~/.omp/agent/config.yml` |
 
@@ -78,6 +78,10 @@ If the installed payload under `$HOME` was edited directly, copy it back into th
 ```
 
 The script reads the same three roots in the opposite direction (home to repository), copies new or changed files, and skips identical ones. The home directory is never written to. Repo-only files that no longer exist at home are reported and left alone unless `-Prune` is passed. The local config (`~/.omp/agent/config.yml`) is never synced back; update `.omp/agent/config.example.yml` by hand when the shareable preset itself changes. Review the result with `git status`/`git diff` before committing.
+
+## Project documentation
+
+Use [`create-project-document`](.agents/skills/create-project-document/SKILL.md) to create or audit docs with two reader paths: **Business / Use** for understanding the problem and completing a first task, and **Technical / Build** for understanding the system and running it from checkout. The skill includes outline and page templates, presentation rules, and an editable layout reference.
 
 ## Palantir AI FDE
 
