@@ -1,286 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1170" role="img" aria-labelledby="shellTitle shellDesc">
-  <title id="shellTitle">Documentation shell wireframe: landing, article and mobile</title>
-  <desc id="shellDesc">Neutral wireframe of a docs landing page, an article page with sidebar and in-page table of contents, and a mobile article. Numbered cues mark purpose, two reader paths, a shared example, one primary navigation, a first actionable step, an H2-only TOC, a 68ch measure, and mobile order. Editable text and named groups; no product branding.</desc>
-  <defs>
-    <style>
-      .d-frame { fill: #ffffff; stroke: #d3d9e0; stroke-width: 1; }
-      .d-bar { fill: #fbfcfd; }
-      .d-surface { fill: #f5f7f9; }
-      .d-line { fill: none; stroke: #e2e7ec; stroke-width: 1; }
-      .d-border { fill: none; stroke: #d3d9e0; stroke-width: 1; }
-      .d-kicker { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.09em; fill: #5b6673; }
-      .d-title { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 22px; font-weight: 600; fill: #12171c; }
-      .d-brand { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 13.5px; font-weight: 600; fill: #12171c; }
-      .d-h1 { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 26px; font-weight: 600; fill: #12171c; }
-      .d-h1-sm { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 22px; font-weight: 600; fill: #12171c; }
-      .d-h2 { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 15px; font-weight: 600; fill: #12171c; }
-      .d-body { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 13px; fill: #3f4954; }
-      .d-small { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 11.5px; fill: #58626e; }
-      .d-btn { fill: #ffffff; font-weight: 600; }
-      .d-faint { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 10.5px; fill: #66717d; }
-      .d-tag { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em; fill: #2b5c8a; }
-      .d-navlink { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 12.5px; fill: #3f4954; }
-      .d-navlink-active { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 12.5px; font-weight: 600; fill: #2b5c8a; }
-      .d-link { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 12px; fill: #2b5c8a; }
-      .d-mono { font-family: Consolas, "Cascadia Mono", Menlo, monospace; font-size: 11px; fill: #e6edf5; }
-      .d-mono-sm { font-family: Consolas, "Cascadia Mono", Menlo, monospace; font-size: 9.5px; fill: #cbd7e3; }
-      .d-num { fill: #2b5c8a; }
-      .d-numtext { font-family: "Segoe UI", Inter, Arial, sans-serif; font-size: 9.5px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
-      .d-bar-accent { fill: #2b5c8a; }
-    </style>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 850" role="img" aria-labelledby="title description">
+  <title id="title">Documentation shell: landing, article and mobile</title>
+  <desc id="description">Editable light-theme wireframe. A shared neutral canvas, modest headings, two landing links and an indented sidebar distinguish content from navigation. The mobile task begins without a hero or table of contents.</desc>
+  <style>
+    text { font: 14px system-ui, "Segoe UI", sans-serif; fill: #24292f; }
+    .frame { fill: #ffffff; stroke: #d0d7de; }
+    .rule { fill: none; stroke: #d0d7de; }
+    .surface { fill: #f4f6f8; }
+    .accent { fill: #1757a0; }
+    .muted { fill: #57606a; }
+    .small { font-size: 12px; }
+    .label { font-size: 12px; font-weight: 600; fill: #57606a; }
+    .nav { font-size: 13px; }
+    .active { fill: #1757a0; font-weight: 600; }
+    .brand, .section { font-weight: 600; }
+    .section { font-size: 18px; }
+    .landing-title { font-size: 29px; font-weight: 650; }
+    .article-title { font-size: 25px; font-weight: 650; }
+    .link { fill: #1757a0; text-decoration: underline; }
+    .code { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+  </style>
 
-  <rect width="1440" height="1170" fill="#e9edf1"/>
+  <text class="section" x="20" y="30">Docs shell</text>
+  <text class="muted small" x="960" y="29" text-anchor="end">Scaled wireframe · verify real type and contrast in the browser</text>
 
-  <!-- Title band -->
-  <text class="d-tag" x="40" y="40">EDITABLE WIREFRAME · INFORMATION HIERARCHY</text>
-  <text class="d-title" x="40" y="70">Docs shell: landing, article and mobile</text>
-  <text class="d-faint" x="1400" y="40" text-anchor="end">Neutral palette · system fonts · no product branding</text>
-  <text class="d-faint" x="1400" y="58" text-anchor="end">1440px canvas · edit text and groups directly</text>
+  <text class="label" x="20" y="64">Landing · two direct starts, no sidebar or TOC</text>
+  <g id="landing" transform="translate(20 74)">
+    <rect class="frame" width="644" height="300" rx="4"/>
+    <path class="rule" d="M0 44H644"/>
+    <text class="brand" x="24" y="27">Project docs</text>
+    <text class="nav muted" x="620" y="27" text-anchor="end">Search</text>
 
-  <!-- A. Landing -->
-  <text class="d-tag" x="40" y="94">A · LANDING / FIRST VIEWPORT</text>
-  <g id="landing" transform="translate(40 100)">
-    <rect class="d-frame" width="880" height="464"/>
-    <rect class="d-bar" width="880" height="52"/>
-    <path class="d-line" d="M0 52H880"/>
+    <text class="landing-title" x="32" y="94">What the project helps you do</text>
+    <text x="32" y="120">Name the reader and the outcome they can expect.</text>
 
-    <rect class="d-num" x="20" y="17" width="18" height="18" rx="4"/>
-    <text class="d-numtext" x="29" y="30">P</text>
-    <text class="d-brand" x="46" y="32">Project docs</text>
-    <text class="d-navlink" x="250" y="31">Business / Use</text>
-    <text class="d-navlink" x="366" y="31">Technical / Build</text>
-
-    <rect class="d-surface" x="650" y="13" width="160" height="26" rx="4"/>
-    <rect class="d-border" x="650" y="13" width="160" height="26" rx="4"/>
-    <text class="d-faint" x="662" y="29">Search</text>
-    <text class="d-faint" x="798" y="29" text-anchor="end">Ctrl K</text>
-    <rect class="d-border" x="822" y="13" width="26" height="26" rx="4"/>
-    <circle cx="835" cy="26" r="5" fill="none" stroke="#58626e" stroke-width="1"/>
-    <path d="M835 21a5 5 0 0 0 0 10z" fill="#58626e"/>
-
-    <text class="d-kicker" x="40" y="88">START HERE · PRODUCT OVERVIEW</text>
-    <text class="d-h1" x="40" y="124">What the project helps readers do</text>
-    <text class="d-body" x="40" y="152">Name the audience and the situation they face.</text>
-    <text class="d-body" x="40" y="170">Show the concrete outcome they can expect.</text>
-
-    <rect class="d-num" x="40" y="194" width="198" height="36" rx="4"/>
-    <text class="d-small d-btn" x="56" y="217">Start the first task  →</text>
-    <rect class="d-border" x="250" y="194" width="150" height="36" rx="4"/>
-    <text class="d-link" x="266" y="217">Run it locally</text>
-
-    <rect fill="#fbfcfd" stroke="#dbe1e8" x="40" y="254" width="392" height="128" rx="4"/>
-    <text class="d-tag" x="58" y="278">BUSINESS / USE</text>
-    <text class="d-h2" x="58" y="303">Understand and try it</text>
-    <text class="d-small" x="58" y="325">Problem, people, workflow and result.</text>
-    <text class="d-small" x="58" y="341">First task · observable result · limits</text>
-    <text class="d-link" x="58" y="366">Open the use path →</text>
-
-    <rect fill="#fbfcfd" stroke="#dbe1e8" x="448" y="254" width="392" height="128" rx="4"/>
-    <text class="d-tag" x="466" y="278">TECHNICAL / BUILD</text>
-    <text class="d-h2" x="466" y="303">Run it and change it</text>
-    <text class="d-small" x="466" y="325">Boundaries, one traced flow, decisions.</text>
-    <text class="d-small" x="466" y="341">Clean checkout · verify · first change</text>
-    <text class="d-link" x="466" y="366">Open the build path →</text>
-
-    <rect class="d-surface" x="40" y="398" width="800" height="40" rx="4"/>
-    <rect class="d-border" x="40" y="398" width="800" height="40" rx="4"/>
-    <text class="d-tag" x="56" y="422">SHARED EXAMPLE</text>
-    <text class="d-small" x="164" y="422">One real input → one checkable result. Link to it from both paths.</text>
-
-    <circle class="d-num" cx="858" cy="112" r="8"/>
-    <text class="d-numtext" x="858" y="115.5">1</text>
-    <circle class="d-num" cx="858" cy="268" r="8"/>
-    <text class="d-numtext" x="858" y="271.5">2</text>
-    <circle class="d-num" cx="858" cy="418" r="8"/>
-    <text class="d-numtext" x="858" y="421.5">3</text>
-
-    <path d="M20 458H860" stroke="#aab4bf" stroke-width="1" stroke-dasharray="4 4"/>
-    <text class="d-faint" x="20" y="451">first viewport at 1440×900</text>
+    <path class="rule" d="M32 146H612M32 201H612"/>
+    <text class="link" x="32" y="170">Use: Complete the first task →</text>
+    <text class="muted small" x="32" y="187">See the result you can expect.</text>
+    <text class="link" x="32" y="225">Build: Run from source →</text>
+    <text class="muted small" x="32" y="242">Start the project, then trace one flow.</text>
   </g>
 
-  <!-- B. Article -->
-  <text class="d-tag" x="40" y="598">B · ARTICLE / FIRST ACTION AND TOC</text>
-  <g id="article" transform="translate(40 606)">
-    <rect class="d-frame" width="880" height="500"/>
-    <rect class="d-bar" width="880" height="52"/>
-    <path class="d-line" d="M0 52H880"/>
+  <text class="label" x="684" y="64">Mobile · first step before secondary UI</text>
+  <g id="mobile" transform="translate(684 74)">
+    <rect class="frame" width="276" height="300" rx="4"/>
+    <path class="rule" d="M0 44H276"/>
+    <text class="nav" x="16" y="27">Menu</text>
+    <text class="brand" x="72" y="27">Project docs</text>
+    <text class="muted small" x="16" y="70">Docs / Build</text>
+    <text class="article-title" x="16" y="102">Run locally</text>
+    <text x="16" y="126">Start a local instance and check</text>
+    <text x="16" y="146">that it responds.</text>
 
-    <rect class="d-num" x="20" y="17" width="18" height="18" rx="4"/>
-    <text class="d-numtext" x="29" y="30">P</text>
-    <text class="d-brand" x="46" y="32">Project docs</text>
-    <text class="d-navlink" x="250" y="31">Business / Use</text>
-    <text class="d-navlink-active" x="366" y="31">Technical / Build</text>
-    <rect class="d-bar-accent" x="366" y="46" width="104" height="2"/>
-
-    <rect class="d-surface" x="650" y="13" width="160" height="26" rx="4"/>
-    <rect class="d-border" x="650" y="13" width="160" height="26" rx="4"/>
-    <text class="d-faint" x="662" y="29">Search</text>
-    <text class="d-faint" x="798" y="29" text-anchor="end">Ctrl K</text>
-    <rect class="d-border" x="822" y="13" width="26" height="26" rx="4"/>
-    <circle cx="835" cy="26" r="5" fill="none" stroke="#58626e" stroke-width="1"/>
-
-    <path class="d-line" d="M180 52V500"/>
-    <text class="d-tag" x="20" y="82">BUSINESS / USE</text>
-    <text class="d-navlink" x="20" y="106">Overview</text>
-    <text class="d-navlink" x="20" y="130">Workflow</text>
-    <text class="d-navlink" x="20" y="154">Example result</text>
-    <text class="d-tag" x="20" y="192">TECHNICAL / BUILD</text>
-    <text class="d-navlink" x="20" y="216">Boundaries</text>
-    <text class="d-navlink-active" x="20" y="240">Run locally</text>
-    <rect class="d-bar-accent" x="0" y="228" width="3" height="16"/>
-    <text class="d-navlink" x="20" y="264">Verify</text>
-    <text class="d-navlink" x="20" y="288">First change</text>
-    <text class="d-navlink" x="20" y="312">Reference</text>
-    <text class="d-faint" x="20" y="472">One level · 5–9 pages</text>
-
-    <text class="d-faint" x="204" y="84">Docs / Build / Run locally</text>
-    <text class="d-h1-sm" x="204" y="120">Run it from a clean checkout</text>
-    <text class="d-small" x="204" y="144">What you need, the command that proves it, and one safe change.</text>
-
-    <text class="d-h2" x="204" y="182">1. Check prerequisites</text>
-    <text class="d-small" x="204" y="204">List supported versions, local dependencies</text>
-    <text class="d-small" x="204" y="222">and any access the reader actually needs.</text>
-
-    <text class="d-h2" x="204" y="254">2. Start the stack</text>
-    <rect fill="#1b2229" x="204" y="266" width="460" height="62" rx="4"/>
-    <text class="d-mono" x="218" y="288">[checkout command]</text>
-    <text class="d-mono" x="218" y="306">[setup and start commands]</text>
-    <text class="d-mono-sm" x="218" y="322">→ [observed readiness signal]</text>
-
-    <text class="d-h2" x="204" y="358">3. Verify the result</text>
-    <text class="d-small" x="204" y="380">Run the smallest check using the shared example.</text>
-    <rect class="d-surface" x="204" y="394" width="460" height="28" rx="2"/>
-    <rect class="d-bar-accent" x="204" y="394" width="3" height="28"/>
-    <text class="d-small" x="218" y="413">Expected: the result readers can compare with their own.</text>
-    <text class="d-link" x="204" y="448">Next: make the first small change →</text>
-
-    <path d="M204 474H664M204 470V478M664 470V478" stroke="#aab4bf" stroke-width="1"/>
-    <text class="d-faint" x="434" y="490" text-anchor="middle">68ch target · 17/28 body</text>
-    <circle class="d-num" cx="672" cy="472" r="8"/>
-    <text class="d-numtext" x="672" y="475.5">7</text>
-
-    <path class="d-line" d="M684 52V500"/>
-    <text class="d-tag" x="700" y="80">ON THIS PAGE</text>
-    <text class="d-faint" x="700" y="98">3 min read</text>
-    <text class="d-small" x="700" y="128">1. Check prerequisites</text>
-    <text class="d-navlink-active" x="700" y="152">2. Start the stack</text>
-    <rect class="d-bar-accent" x="688" y="140" width="2" height="16"/>
-    <text class="d-small" x="700" y="176">3. Verify the result</text>
-    <text class="d-faint" x="700" y="214">H2 only. Active state follows</text>
-    <text class="d-faint" x="700" y="230">scroll and the URL hash.</text>
-    <text class="d-faint" x="700" y="472">The only in-page index.</text>
-
-    <circle class="d-num" cx="160" cy="76" r="8"/>
-    <text class="d-numtext" x="160" y="79.5">4</text>
-    <circle class="d-num" cx="672" cy="182" r="8"/>
-    <text class="d-numtext" x="672" y="185.5">5</text>
-    <circle class="d-num" cx="868" cy="76" r="8"/>
-    <text class="d-numtext" x="868" y="79.5">6</text>
+    <text class="section" x="16" y="186">1. Check prerequisites</text>
+    <text x="16" y="209">List what the reader needs.</text>
+    <text class="section" x="16" y="249">2. Start the project</text>
+    <rect class="surface" x="16" y="260" width="244" height="28" rx="3"/>
+    <text class="code" x="28" y="279">[verified start command]</text>
   </g>
 
-  <!-- Legend -->
-  <g id="legend" transform="translate(952 100)">
-    <rect class="d-frame" width="448" height="464"/>
-    <text class="d-tag" x="24" y="32">READING DECISIONS</text>
-    <text class="d-small" x="24" y="52">Numbered cues mark both frames.</text>
+  <text class="label" x="20" y="408">Article · page navigation on the left, heading anchors on the right</text>
+  <g id="article" transform="translate(20 418)">
+    <rect class="frame" width="940" height="388" rx="4"/>
+    <path class="rule" d="M0 44H940M182 44V388"/>
+    <text class="brand" x="24" y="27">Project docs</text>
+    <text class="nav" x="206" y="27">Use</text>
+    <text class="nav active" x="258" y="27">Build</text>
+    <rect class="accent" x="258" y="42" width="34" height="2"/>
+    <text class="nav muted" x="916" y="27" text-anchor="end">Search</text>
 
-    <circle class="d-num" cx="32" cy="84" r="8"/><text class="d-numtext" x="32" y="87.5">1</text>
-    <text class="d-small" x="50" y="88">Landing: what it is, for whom, what changes.</text>
-    <circle class="d-num" cx="32" cy="120" r="8"/><text class="d-numtext" x="32" y="123.5">2</text>
-    <text class="d-small" x="50" y="124">Two labeled paths, each with a real outcome.</text>
-    <circle class="d-num" cx="32" cy="156" r="8"/><text class="d-numtext" x="32" y="159.5">3</text>
-    <text class="d-small" x="50" y="160">One shared example; link it, do not copy it.</text>
-    <circle class="d-num" cx="32" cy="192" r="8"/><text class="d-numtext" x="32" y="195.5">4</text>
-    <text class="d-small" x="50" y="196">One persistent nav; no repeated chapter lists.</text>
-    <circle class="d-num" cx="32" cy="228" r="8"/><text class="d-numtext" x="32" y="231.5">5</text>
-    <text class="d-small" x="50" y="232">The article opens on the first useful step.</text>
-    <circle class="d-num" cx="32" cy="264" r="8"/><text class="d-numtext" x="32" y="267.5">6</text>
-    <text class="d-small" x="50" y="268">TOC lists H2 only; active state uses ARIA.</text>
-    <circle class="d-num" cx="32" cy="300" r="8"/><text class="d-numtext" x="32" y="303.5">7</text>
-    <text class="d-small" x="50" y="304">60–75ch measure; 17/28 body; 4px rhythm.</text>
-    <circle class="d-num" cx="32" cy="336" r="8"/><text class="d-numtext" x="32" y="339.5">8</text>
-    <text class="d-small" x="50" y="340">Mobile keeps the order; 44px targets.</text>
+    <g id="sidebar">
+      <text class="label" x="20" y="80">Get started</text>
+      <rect class="surface" x="24" y="92" width="142" height="28" rx="3"/>
+      <rect class="accent" x="24" y="92" width="2" height="28"/>
+      <text class="nav active" x="34" y="110">Run locally</text>
+      <text class="nav" x="34" y="139">First change</text>
+      <text class="label" x="20" y="177">Understand</text>
+      <text class="nav" x="34" y="205">System boundaries</text>
+      <text class="nav" x="34" y="233">Request flow</text>
+      <text class="nav" x="34" y="261">Design decisions</text>
+    </g>
 
-    <path class="d-line" d="M24 360H424"/>
-    <text class="d-faint" x="24" y="382">Spacing 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64</text>
-    <text class="d-faint" x="24" y="400">Body 17/28 · H1 40/44 · H2 26/32 · meta 14/20</text>
-    <text class="d-faint" x="24" y="418">Sidebar 256 · article max 720 · TOC 240</text>
-    <text class="d-faint" x="24" y="436">Top bar 56 · mobile 16/26 · gutters 20</text>
-    <text class="d-faint" x="24" y="454">Defaults, not a theme: keep the ratios.</text>
+    <text class="muted small" x="210" y="80">Docs / Build</text>
+    <text class="article-title" x="210" y="115">Run locally</text>
+    <text x="210" y="142">Start a local instance and check that it responds.</text>
+
+    <text class="section" x="210" y="186">1. Check prerequisites</text>
+    <text x="210" y="209">List what the reader needs.</text>
+    <text class="section" x="210" y="251">2. Start the project</text>
+    <rect class="surface" x="210" y="262" width="484" height="32" rx="3"/>
+    <text class="code" x="222" y="283">[verified start command]</text>
+    <text class="section" x="210" y="333">3. Verify the result</text>
+    <text x="210" y="356">Show the check and the success signal side by side.</text>
+
+    <g id="toc">
+      <text class="label" x="736" y="80">On this page</text>
+      <rect class="accent" x="726" y="94" width="2" height="14"/>
+      <text class="small active" x="736" y="106">1. Check prerequisites</text>
+      <text class="small muted" x="736" y="130">2. Start the project</text>
+      <text class="small muted" x="736" y="154">3. Verify the result</text>
+    </g>
   </g>
 
-  <!-- C. Mobile -->
-  <text class="d-tag" x="952" y="598">C · MOBILE / SAME ORDER</text>
-  <text class="d-tag" x="1198" y="598">NOTES</text>
-  <g id="mobile" transform="translate(952 606)">
-    <rect class="d-frame" width="230" height="500"/>
-    <rect class="d-bar" width="230" height="44"/>
-    <path class="d-line" d="M0 44H230"/>
-    <path d="M14 17H28M14 22H28M14 26H28" stroke="#3f4954" stroke-width="1.6"/>
-    <text class="d-brand" x="42" y="27">Project docs</text>
-    <circle class="d-num" cx="210" cy="22" r="8"/>
-    <text class="d-numtext" x="210" y="25.5">8</text>
-
-    <text class="d-tag" x="16" y="68">TECHNICAL / BUILD</text>
-    <text class="d-h1-sm" x="16" y="98">Run it from a clean</text>
-    <text class="d-h1-sm" x="16" y="120">checkout</text>
-    <text class="d-small" x="16" y="144">What you need, and the result</text>
-    <text class="d-small" x="16" y="160">that proves it works.</text>
-
-    <rect class="d-num" x="16" y="174" width="198" height="34" rx="4"/>
-    <text class="d-small d-btn" x="28" y="195">Start: check prerequisites →</text>
-
-    <rect class="d-surface" x="16" y="220" width="198" height="30" rx="4"/>
-    <rect class="d-border" x="16" y="220" width="198" height="30" rx="4"/>
-    <text class="d-small" x="28" y="239">On this page · 3 sections ▾</text>
-    <rect class="d-surface" x="16" y="252" width="198" height="64" rx="4"/>
-    <rect class="d-border" x="16" y="252" width="198" height="64" rx="4"/>
-    <rect class="d-bar-accent" x="16" y="260" width="2" height="14"/>
-    <text class="d-small" x="28" y="271" fill="#2b5c8a" font-weight="600">1. Check prerequisites</text>
-    <text class="d-small" x="28" y="289">2. Start the stack</text>
-    <text class="d-small" x="28" y="307">3. Verify the result</text>
-
-    <text class="d-h2" x="16" y="342">1. Check prerequisites</text>
-    <text class="d-small" x="16" y="362">Versions and dependencies.</text>
-    <text class="d-small" x="16" y="378">State access requirements.</text>
-    <rect fill="#1b2229" x="16" y="390" width="198" height="44" rx="4"/>
-    <text class="d-mono-sm" x="28" y="408">[verified setup command]</text>
-    <text class="d-mono-sm" x="28" y="424">→ [readiness signal]</text>
-    <text class="d-faint" x="16" y="452">Same order; no new concepts.</text>
-    <text class="d-faint" x="16" y="476">44px targets · 16/26 body</text>
-  </g>
-
-  <g id="mobile-notes" transform="translate(1198 606)">
-    <rect class="d-frame" width="202" height="500"/>
-    <text class="d-tag" x="18" y="32">MOBILE + WIDE FIGURES</text>
-    <text class="d-faint" x="18" y="58">One column, 20–24px gutters.</text>
-    <text class="d-faint" x="18" y="76">Top bar 56px; menu 44×44.</text>
-    <text class="d-faint" x="18" y="94">Body 16/26; H1 28/34.</text>
-    <text class="d-faint" x="18" y="112">TOC becomes a disclosure under</text>
-    <text class="d-faint" x="18" y="128">the lede; same anchors.</text>
-    <text class="d-faint" x="18" y="150">Tables scroll in their own</text>
-    <text class="d-faint" x="18" y="166">container; full-bleed figures.</text>
-    <text class="d-faint" x="18" y="188">Drawer traps focus and closes</text>
-    <text class="d-faint" x="18" y="204">on route change.</text>
-    <text class="d-faint" x="18" y="226">Test 390 and 320 wide, and 200%</text>
-    <text class="d-faint" x="18" y="242">zoom.</text>
-
-    <path class="d-line" d="M18 262H184"/>
-    <text class="d-tag" x="18" y="286">WIDE FIGURES</text>
-    <text class="d-faint" x="18" y="308">Link to a full view or split it.</text>
-    <text class="d-faint" x="18" y="324">Check labels at normal size.</text>
-    <text class="d-faint" x="18" y="340">If the main path is hard to</text>
-    <text class="d-faint" x="18" y="356">follow, split by question.</text>
-
-    <path class="d-line" d="M18 378H184"/>
-    <text class="d-tag" x="18" y="402">MEDIA JOBS</text>
-    <text class="d-faint" x="18" y="424">Capture = real UI state.</text>
-    <text class="d-faint" x="18" y="442">Diagram = structure, with source.</text>
-    <text class="d-faint" x="18" y="460">Generated = decoration only.</text>
-    <text class="d-faint" x="18" y="484">No invented screenshots or output.</text>
-  </g>
-
-  <text class="d-faint" x="40" y="1148">Editable wireframe: text stays text; groups and classes are named. Replace copy, keep hierarchy.</text>
-  <text class="d-faint" x="1400" y="1148" text-anchor="end">assets/docs-shell.svg · 1440×1170 viewBox</text>
+  <text class="muted small" x="20" y="832">Baseline: article H1 28–32px · body 16/25–26px · sidebar children indented 12–16px</text>
 </svg>

@@ -4,6 +4,24 @@ Use this reference with [workflow.md](workflow.md) for evidence and outlining, a
 
 These rules are stack-agnostic. Apply them to MkDocs, Astro/Starlight, Docusaurus, Hugo, a hand-built site or a README, using that stack's existing components and tokens. Numeric values are a starting baseline, not a brand system.
 
+## 0. Choose the reading surface
+
+Keep an established, readable site theme. For a new site without a theme, default to a light neutral canvas and respect the OS or saved preference if dark mode ships. Do not force a dark dashboard aesthetic onto long-form docs. A README inherits its host theme; check the rendered page instead of restyling the host.
+
+| Role | Light starting point | Dark starting point |
+|---|---|---|
+| Canvas (article, header and nav) | `#FFFFFF` | `#16181D` |
+| Subtle surface (code or active row) | `#F4F6F8` | `#22262D` |
+| Main text | `#24292F` | `#E5E7EB` |
+| Secondary text | `#57606A` | `#AAB2BF` |
+| Accent (links, active marker, focus) | `#1757A0` | `#8CB9FF` |
+
+Use one canvas across the shell; align regions with gutters and, if needed, a thin divider. Use one subtle surface for a functional distinction, not a separate background for each rail or section. Code inherits the theme rather than introducing a dark slab on a light page. Reserve accent for interaction; let status colors appear only where they convey status. No gradients, glows, glass, shadow stacks, or tinted cards around ordinary prose. Inline prose links need a non-color cue such as an underline.
+
+Check rendered foreground/background pairs (including muted nav, links, active rows and syntax): WCAG AA, at least 4.5:1 for normal text and 3:1 for large text. Focus indicators and essential control boundaries need at least 3:1 against adjacent colors. These example colors are not a substitute for checking the implemented states.
+
+**Pilot before rollout.** Build the landing, one real quickstart and one architecture/reference page using the real theme, longest localized labels, and representative code, table or diagram. Inspect at 100% zoom at 1440×900 and 390×844 before reusing the shell. Compare with the current site when redesigning. Fix crowded screens by cutting duplicate UI and copy before shrinking body text. An editable SVG or token table is a design aid, not acceptance evidence.
+
 ## 1. The first viewport
 
 The first viewport should answer three questions:
@@ -19,11 +37,10 @@ The first viewport should answer three questions:
 | One-sentence purpose in plain language | Replaces a name-only title and acronym chain |
 | Audience and situation | Lets the reader decide in five seconds |
 | Observable outcome or capability | Answers "what changes" |
-| One primary action | Sends the reader to a first useful task |
-| Both path entries with one-line outcomes | Business / Use and Technical / Build are visible, not hidden in a tab |
+| Two path entries with one-line outcomes | Link to both starts; one may be primary. Do not add a separate CTA row if it repeats the same destinations |
 | Optional: one real result (snippet, cropped capture, sample output) | Shows the quality of the promise without a feature tour |
 
-Put this above a 1440×900 first viewport. On mobile, the same order survives one 390×844 screen: purpose, audience, action, then the two paths.
+Fit purpose, audience and both start links in the first viewport at 1440×900 and 390×844. Let the example and supporting detail follow below.
 
 ### Do not lead with
 
@@ -44,15 +61,17 @@ If a promised action has no real release or environment, say so at the action's 
 | Region | Baseline | Rules |
 |---|---:|---|
 | Top bar | 56px, sticky | Brand, both path entries, search, theme. Never a second copy of the sidebar tree |
-| Primary nav | 256px (240–280) | One level, 5–9 entries, `aria-current="page"` on the active route |
+| Primary nav | 224–256px | Pages in the current path; one expansion level when needed; `aria-current="page"` |
 | Article column | 720px or 68ch max | Same left edge for every block; do not center long prose |
-| In-page TOC | 240px (200–240) | H2 only, sticky, secondary to the primary nav |
-| Column gaps | 40–48px | Reduce gaps before reducing type or the measure |
-| Page gutters | 48px | 64px on very wide screens |
+| In-page TOC | 176–208px | Optional on long pages; H2 only, sticky and visually secondary |
+| Column gaps | 24–40px | Drop the TOC before squeezing the reading column |
+| Page gutters | 24–48px | Keep article and rails in one grid; do not stretch prose to fill unused space |
 
 Use one persistent navigation plus, at most, one in-page TOC. The top bar may carry the two path entries because they are the main decision; it must not repeat chapter or section links that already exist in the sidebar.
 
 **Assign each navigation region one job.** The header switches reader paths, the sidebar navigates pages, and the TOC links to headings within the current page. If the same links appear in multiple regions, remove the duplicates rather than decorating each region differently.
+
+**Make sidebar depth visible without color.** Use three distinct treatments: non-interactive group labels (12/16px, semibold, space above); page links (14/20px, descendants indented 12–16px per level); current page (semibold plus an inset marker or subtle row fill, with `aria-current="page"`). Align sibling links. If a parent expands, give its disclosure an accessible name and state; do not add chevrons to leaf pages. Avoid pills, badges and icons on every row. In grayscale, a reader should still be able to point to the group, a child and the current page. For a small flat route tree, omit unnecessary groups.
 
 Add another navigation layer only for a genuinely different axis — product, version or locale — and implement it as a labeled selector that changes route or content, not as a third list of the same hierarchy.
 
@@ -61,11 +80,11 @@ Below this width, move the TOC into the article before squeezing the prose into 
 ### Mobile and narrow widths
 
 - At ≤900px, collapse the sidebar into a drawer: 44×44 menu button, 85vw maximum width, same order as desktop, focus trapped while open, closes on route change and Escape.
-- Keep the top bar 56px; body 16/26; H1 28/34; gutters 20–24px.
+- Keep the top bar 48–56px; body 16/25–26; article H1 26–28px; gutters 16–24px. A collapsed TOC must not displace the first useful step.
 - Do not introduce a second bottom navigation for documentation. One drawer is enough.
 - No horizontal page scroll at 320px. Tables scroll inside their own labeled container; wide figures link to a full view instead of shrinking the page.
 - Keep the skip link as the first focusable element; use `<header>`, `<nav aria-label="Documentation">`, `<main>`, and `<aside aria-label="On this page">`.
-- Active navigation must not rely on color alone: add weight, a bar or `aria-current`, and preserve a 2px visible focus ring.
+- Use a visible 2px focus ring; active state needs a visible non-color cue in addition to `aria-current`.
 
 ### Language and labels
 
@@ -77,15 +96,16 @@ Write all interface copy, headings, examples and success signals in the audience
 
 | Token | Value | Notes |
 |---|---|---|
-| Body | 17/28 (16–18px, 1.6–1.7) | Long-form reading size; never below 16px |
+| Body | 16/25–26 | Keep body readable; check the chosen font at normal zoom |
 | Measure | 60–75ch, 720px cap | Count characters, not just pixels; a 960px column at 15px is roughly 110+ characters |
-| H1 | 40/44, `clamp(32px, 4vw, 44px)` | One per page; may be two lines |
-| Lede | 20/32 | One to three sentences under the H1 |
-| H2 | 26/32 | 48px space above, 12–16px below |
-| H3 | 19/28 | 32px above, 8px below |
-| Meta and nav | 14/20 | 12–14px is for labels, never body |
+| Landing H1 | 32–36px / 1.15, weight 600–700 | Compact title; use 28–32px on mobile. Display type belongs on a separate marketing surface |
+| Article H1 | 28–32px / 1.2, weight 600–700 | No hero or viewport-driven growth. Shorten copy if it wraps excessively |
+| Lede | 16–17px / 1.5–1.6 | Body scale on task pages; no second headline |
+| H2 | 21–24px / 1.3 | 28–40px space above, 8–12px below |
+| H3 | 17–19px / 1.35 | 20–24px above, 8px below |
+| Meta and nav | 12–14px / 16–20px | Secondary text, not primary reading content |
 | Code and tables | 14/22 | Monospace inherits the measure; tables may use 13–14px |
-| Eyebrow/label | 12/16, 0.08em tracking | Uppercase only for short labels |
+| Font | Existing readable sans or system stack, with locale coverage | One prose family plus mono. Check accents, fallback and bold weight with real copy |
 | Spacing scale | 4, 8, 12, 16, 24, 32, 48, 64, 96 | 4px base; keep line-heights on the same grid |
 | Paragraph gap | 16px (1em) | List item gap 8px |
 
@@ -93,12 +113,12 @@ Write all interface copy, headings, examples and success signals in the audience
 
 **Reduce cognitive load before reducing font size.** When a narrative, metric grid, comparison table and dense paragraphs compete, keep the block that answers the current question and move the rest to a relevant section or reference. Split paragraphs when they shift from problem to mechanism, evidence or exception.
 
-Fix density structurally: keep body at 16–18px, cap the measure at 60–75ch, cut paragraphs to four sentences, break a block stack with a heading, and move inventories to reference. 15px is a valid dense-application size; it is not a long-form docs size.
+Keep prose around 60–75ch and move inventories to reference. Reduce oversized headings, repeated lead-ins and vertical gaps before reducing body size. Check the visual weight of the actual font; matching the numbers does not guarantee a readable page.
 
 ### Vertical rhythm
 
 - One spacing scale for margins, padding and gaps. Do not mix 10/15/22px inventions.
-- A section is `H2` + one short intro + content. Use 48px before the H2, 16px after.
+- Let an H2 start the content directly when no intro is needed. Use whitespace rather than a rule under every heading.
 - Alternate: at most two prose paragraphs, then a list, code block, table or figure. Prose-only stretches longer than about 120 words need a subheading or a structural break.
 - Keep one left edge for title, lede, body, lists and code. Full-bleed is only for figures, wide tables and comparison strips.
 - Cards inside cards, tinted panels around every section and decorative dividers flatten hierarchy. Use heading level, space and a single surface step.
@@ -114,7 +134,7 @@ Fix density structurally: keep body at 16–18px, cap the measure at 60–75ch, 
 | Callout | 1 per screen; only for a guard that changes the next command or decision |
 | Step list | 5–9 steps; split or group beyond that |
 | Table | ≤6 columns and ~12 rows before splitting or moving to reference |
-| Sidebar | 5–9 top-level entries, one expansion level |
+| Sidebar | One expansion level by default; group only when it helps scanning |
 | TOC | ≤12 H2 items |
 | Task page | 5–12 minutes to first result; split when it serves two outcomes |
 
@@ -126,13 +146,12 @@ The test is not "does it fit" but "what is the one thing to read next". If three
 
 1. Plain-language title, then one-sentence purpose.
 2. Audience and the situation it applies to.
-3. Primary action: the first useful task.
-4. Two labeled paths, each with an outcome, not a table of contents.
-5. One shared real example or result, with a link to the canonical detail.
-6. Scope limits and prerequisites short enough to read.
-7. Secondary links: reference, changelog, repository or release.
+3. Two direct starts with a one-line outcome each. Use a pair of simple link rows by default; if more emphasis is needed, emphasize one action without listing it again.
+4. One shared real example or result, with a link to the canonical detail.
+5. Scope limits and prerequisites short enough to read.
+6. Secondary links: reference, changelog, repository or release.
 
-Keep the landing free of feature grids, version badges that dominate the title, and a site map. The two path cards are the site map at this level.
+Keep the landing free of feature grids, dominant version badges, decorative eyebrow text and a TOC that just repeats the two starts. Don't combine a hero, CTA row and path cards for the same decision.
 
 ### Task article
 
@@ -189,7 +208,7 @@ The TOC exists for the current page, not for the site.
 - Every heading gets a stable, human-readable `id` at authoring time. Set `scroll-margin-top` to the sticky bar height + 16px.
 - Make the active item follow scroll with `IntersectionObserver`; mark it with `aria-current="true"` and a 2px bar, not color alone.
 - Loading a deep link selects the matching TOC item and scrolls without covering the heading.
-- Below the wide layout, replace the rail with a disclosure directly under the lede: `On this page · 3 sections`. Same anchors, same labels, no duplicated site nav.
+- Below the wide layout, use a collapsed disclosure for long pages only. Keep the same anchors and place it where it won't interrupt the lead and first action.
 - Keep the TOC visually secondary: 12–14px, muted, no promotional box, no "story progress" widget, no second chapter list.
 
 **Check long reference pages independently.** A shallow route tree does not replace heading anchors, a scoped TOC or, when the corpus merits it, search. Readers should be able to share the exact flag group, contract or troubleshooting section without sharing the entire page.
@@ -262,15 +281,15 @@ Use only for covers, atmosphere or a clearly labeled concept illustration. State
 
 ## 9. Verify the presentation
 
-Run these against the rendered surface, not the source:
+Run these against the implemented site at normal zoom; review captures before rollout and repeat against the final build. For a README, apply only checks its host supports.
 
-1. **First viewport:** at 1440×900 and 390×844, a new reader can state what it is, who it serves and where to start without scrolling; both paths are reachable in one click.
-2. **Navigation count:** one route index plus one in-page TOC. If the same chapter labels appear twice outside the TOC, remove one.
-3. **Measure:** body measure stays 60–75ch at desktop; no 960px wall of 15px text.
+1. **First viewport:** at 1440×900 and 390×844, the landing explains the outcome and shows both start links without scrolling. The task page shows its first actionable instruction; the architecture or reference page shows its answer or a readable first visual. A jump link to instructions does not count as the instruction.
+2. **Navigation:** remove duplicate chapter lists and landing CTAs. In a grayscale screenshot of the article or open mobile drawer, identify a group, a child and the active page without reading the copy (where those levels exist). The TOC must not look like a second sidebar.
+3. **Background and scale:** inspect each shipped theme. Check actual contrast for regular, muted and active text, links and focus; at 100% zoom the article is not a hero, code does not dominate, and the body measure stays about 60–75ch on desktop. At 200% zoom and 320px width, the page remains readable without page-level horizontal scroll; tables and code can scroll locally.
 4. **Tabs:** keyboard only; deep link and reload restore the pane; JavaScript disabled still exposes the content; no critical guard lives in one pane.
 5. **TOC:** every H2 has a stable anchor; deep links land below the sticky bar; active state uses `aria-current`, not color alone.
 6. **Media:** each figure is readable at 100% at the widest layout that shows it; otherwise it links to a full view. Captures came from a real run and contain no secrets.
 7. **Content:** no inventory metrics above the first action; one shared example, linked consistently; cross-path links resolve; no invented commands, outputs, downloads or releases.
 8. **Language:** the rendered copy is in the audience's language; the longest labels and headings do not clip or overflow.
 
-Record what was actually rendered and at which viewport. If a viewport, browser, account or runtime was unavailable, name it as a verification limit rather than claiming the path works.
+Record the routes, viewports, tested themes and screenshot locations. For a redesign, compare the same landing and article before and after; name the specific improvements and any remaining issue. If a viewport, browser, account or runtime was unavailable, report the limit rather than passing the gate.

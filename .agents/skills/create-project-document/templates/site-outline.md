@@ -49,6 +49,10 @@ One example is enough. Add a second only when it proves a different supported pa
 | Either path | Canonical example and limits | Direct anchors; no duplicated prose |
 | Every page | A real next action | The next page, section, or external owner |
 
+## Visual pilot (sites)
+
+Before applying a shell to the whole site, select the landing, a real first-task page and an architecture/reference page from the matrix. Record the canvas, subtle surface, text and accent tokens; title/body scale and article measure; and which region owns path switches, page links and heading anchors. Use actual localized copy and one dense block from the project. Capture 1440×900 and 390×844 in each shipped theme and review the [visual acceptance gate](../references/presentation.md#9-verify-the-presentation). Do not publish this planning section.
+
 ## Coverage checks
 
 - [ ] The landing page links both paths; neither path is hidden inside the other.

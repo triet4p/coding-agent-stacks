@@ -20,6 +20,7 @@
 
 ### Changed
 
+- Tightened the `create-project-document` visual baseline: neutral reading surfaces, compact article typography, distinct sidebar levels, and a rendered visual pilot before rollout.
 - Clarified the Palantir FDE role contracts: scoped user choice of model slot, direct evidence access for Planner and Advisor, and a complete Worker handoff even on failure.
 - The installer now copies the preset to `~/.omp/agent/config.yml` by default, replacing the full file with the existing conflict, backup, and preview protections; `-UsePresetConfig:$false` opts out.
 - Replaced automatic worker-tier selection with user-controlled `ask` routing and scoped delegation, presenting subagent role, task fit, quota observations, workflow and commit permission together.
