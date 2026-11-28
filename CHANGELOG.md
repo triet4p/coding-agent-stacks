@@ -14,9 +14,12 @@
 - Added `databricks-slides` skill assets, references, and scripts (example gallery, topology catalog, localization, QA gates, deck check/render scripts).
 - Added `coding-conventions.md` rule: file budgets with grandfathered god-files frozen, phase-agnostic code, portability, and a mandatory per-project conventions file checked by reviewers.
 - Added `plan` subagent definition (`openai-codex/gpt-6.2-sol:medium`) that owns durable planning and writes plan files directly.
+- Added an isolated `palantir/` AI FDE pack with atomic Worker handoffs, dependency-based planning, and scoped opt-in parallel execution. The OMP installer and home sync do not load it.
+- Added Foundry dataset, metric, and release governance rules plus on-demand skills for dataset design, Ontology design, Workshop verification, and release review. FDE briefs carry the applicable guidance to subagents.
 
 ### Changed
 
+- Clarified the Palantir FDE role contracts: scoped user choice of model slot, direct evidence access for Planner and Advisor, and a complete Worker handoff even on failure.
 - The installer now copies the preset to `~/.omp/agent/config.yml` by default, replacing the full file with the existing conflict, backup, and preview protections; `-UsePresetConfig:$false` opts out.
 - Replaced automatic worker-tier selection with user-controlled `ask` routing and scoped delegation, presenting subagent role, task fit, quota observations, workflow and commit permission together.
 - Added a lightweight default for bounded low-risk fixes, with independent evidence review only when assigned; retained required full-route evidence and Bronze exact-snapshot checkpoints at agreed boundaries, with conditional deep review.

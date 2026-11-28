@@ -79,6 +79,10 @@ If the installed payload under `$HOME` was edited directly, copy it back into th
 
 The script reads the same three roots in the opposite direction (home to repository), copies new or changed files, and skips identical ones. The home directory is never written to. Repo-only files that no longer exist at home are reported and left alone unless `-Prune` is passed. The local config (`~/.omp/agent/config.yml`) is never synced back; update `.omp/agent/config.example.yml` by hand when the shareable preset itself changes. Review the result with `git status`/`git diff` before committing.
 
+## Palantir AI FDE
+
+The [Palantir pack](palantir/README.md) is opt-in and is not included in normal installation or home sync. It combines atomic FDE delegation and dependency-based planning with Foundry rules and on-demand skills for datasets, Ontology, Workshop, and releases.
+
 ## OMP workflow
 
 Worker routing is user-controlled. Before dispatch, Main uses `ask` unless you already selected a role or granted routing authority for a task, batch, session, or sprint. The proposal includes subagent role, task fit, quota observed or `unknown`, workflow and commit permission together. Gold remains eligible for medium tasks; neither Gold nor Silver is an automatic default. Chat, asks, briefs and saved records identify subagents by role/type and required work IDs only, never model/provider names, selectors or effort values.
