@@ -4,7 +4,7 @@
 >
 > Write in the language the audience reads. Keep code, identifiers, product names, and error text verbatim. Use the project's existing docs stack; plain Markdown here assumes no generator and no UI framework.
 
-> **SCAFFOLD — title and promise.** Replace the heading with the system or product name a builder would search for. State in two or three sentences what the reader can do after this page: obtain and run it, prove the setup, trace one flow, and make one small supported change. Put a direct link to the run section at the top for readers who only need setup; do not repeat the setup itself here. Do not claim a supported platform, release, or integration that the project does not actually ship.
+> **SCAFFOLD — title and promise.** Name the builder's goal. For substantial projects, use the sections as article types, not one multi-purpose page. Link straight to setup, flows, patterns and behavior-change guides. Apply the [depth contracts](../references/depth.md).
 
 ## Overview and boundaries
 
@@ -38,11 +38,11 @@
 
 ## Make a first small change
 
-> **SCAFFOLD — a safe seam.** Pick an extension point the project already supports: a message, default, validation rule, adapter, handler, or documented configuration path. Name the file or area, the small edit, the narrow check to run, and the observable difference the change makes. Include how to revert. If no safe change is supported, say so and give the closest read-only inspection instead; do not invent an extension point or a feature request.
+> **SCAFFOLD — a real behavior change.** State before/after. Trace the entry point to the owner, implementation symbols, contract and callers. Specify the edit, focused regression check and observable result. Cover compatibility and safe reversal when relevant. A test-only exercise is not a change guide. If demonstration is unsafe, mark execution unverified.
 
 ## How it flows
 
-> **SCAFFOLD — runtime flow.** Explain one end-to-end run beyond the example: entry point, main components, data or control handoffs, where state lives, and the observable output. Name the boundary between owned code and external services, and where failures surface. A diagram is optional; if used, it must match this text and be editable or source-backed. Do not ship an architecture poster that repeats the section.
+> **SCAFFOLD — runtime flows.** Cover major flows from the scope map. Show entry points, data ownership, state transitions, handoffs and the consequential failure branch. Link code and evidence. Use a focused diagram where sequence or boundaries are harder to follow in prose.
 
 ## Decisions and trade-offs
 
@@ -50,7 +50,7 @@
 
 ## Patterns and extension points
 
-> **SCAFFOLD — patterns to copy.** List the patterns a contributor must follow — adapter shape, error handling, configuration flow, test style, naming — and link a representative file or test for each. Then name the real places to add a new command, handler, provider, or surface, including the tests and reference entries that must change with it. Omit anything that is already generated reference. If the project has no stable extension pattern yet, say where conventions live or delete this section; do not invent one.
+> **SCAFFOLD — patterns to learn.** Explain the failure, invariant, normal and failure paths, cost and when not to use it. Link enforcing symbols and the test that would catch a violation. Show a focused excerpt or transition when useful. Cross-link the relevant change guide, not just a directory.
 
 ## Failure modes and diagnosis
 

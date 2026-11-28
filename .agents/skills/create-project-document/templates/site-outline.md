@@ -6,7 +6,7 @@ One landing page, two explicit reader paths, and one canonical example shared by
 
 ## Planning matrix
 
-The rows are the default page set. Merge rows for a small project, split only when a reader goal, prerequisite, or proof changes, and never publish a page whose only content is a heading and a link. Replace the generic persona labels with the roles and situations the project actually serves; one page may serve more than one persona when the question and proof are the same. A single README with both paths is acceptable for a small project; use separate pages when the reader's job or depth genuinely diverges.
+Use these as page types, not a page count. Repeat a type for each significant workflow, subsystem, pattern or reader task. Merge only when the reader question and evidence are shared. A single document works only if it really covers the project at that depth.
 
 | Page | Path | Reader question | Persona | Proof on the page | Next step |
 |---|---|---|---|---|---|
@@ -20,9 +20,17 @@ The rows are the default page set. Merge rows for a small project, split only wh
 | Canonical example | Technical / Build | What actually happens from entry point to observable result? | Engineer tracing behavior | One real run traced through code or configuration, linked to its evidence | Run from a clean checkout |
 | Run from a clean checkout | Technical / Build | Can I get it working from nothing, with the versions you support? | Engineer or operator on a fresh machine | Exact prerequisites, commands, expected signals, verified environment | Verify the setup |
 | Verify the setup | Technical / Build | How do I prove this setup is correct before I trust it? | Engineer or maintainer | Narrow verification command and real success/failure output | First small change |
-| First small change | Technical / Build | Where can I change something small without breaking the design? | New contributor | One safe edit, the check that proves it, and the observable difference | Patterns and decisions |
-| Decisions and patterns | Technical / Build | Why is it built this way, and what should I preserve? | Maintainer or reviewer | Decision table with rejected alternatives and code locations; patterns to copy | Reference |
-| Failure and reference | Technical / Build | Where do I look up behavior, and how do I recover? | Maintainer or operator | Symptom → cause → fix from real failures; links to canonical reference | Support or contributing |
+| Modify behavior | Technical / Build | Where do I start, and what else will this affect? | Contributor | Entry point, owner, callers, contract, before/after and focused regression check | Related pattern |
+| Learn a pattern | Technical / Build | What fails without this design, and when should I reuse it? | Maintainer | Invariant, normal/failure paths, enforcing symbols, test, cost and limits | Flow or change guide |
+| Diagnose a failure | Either | How can I distinguish causes and recover? | Maintainer or operator | Symptom, discriminating check and safe recovery | Workflow or runbook |
+| Look up a contract | Either | What command, field or schema is supported? | Practitioner | Canonical reference and version scope | Example or guide |
+
+## Coverage map
+
+Create a row for each significant item using the [coverage rules](../references/depth.md). An overview or generated index does not count as a substantive destination.
+
+| Workflow, subsystem or change | Audience and question | Impact | Evidence | Destination pages | Verification or gap | Owner |
+|---|---|---|---|---|---|---|
 
 ## Canonical example register
 
@@ -37,7 +45,7 @@ Choose one real scenario and record it before drafting either path. Both pages l
 - **Business view:** link to the section that shows the result to a non-builder.
 - **Technical view:** link to the trace that shows entry point, transformation, and output.
 
-One example is enough. Add a second only when it proves a different supported path, and link both from the register.
+One shared example is enough for orientation. Add the examples needed for substantive workflows, failures and change guides.
 
 ## Link contract
 
@@ -51,7 +59,7 @@ One example is enough. Add a second only when it proves a different supported pa
 
 ## Visual pilot (sites)
 
-Before applying a shell to the whole site, select the landing, a real first-task page and an architecture/reference page from the matrix. Record the canvas, subtle surface, text and accent tokens; title/body scale and article measure; and which region owns path switches, page links and heading anchors. Use actual localized copy and one dense block from the project. Capture 1440×900 and 390×844 in each shipped theme and review the [visual acceptance gate](../references/presentation.md#9-verify-the-presentation). Do not publish this planning section.
+Pilot the landing, a real first-task page and a substantial architecture or pattern article. Use actual localized copy, sidebar labels and representative code, a diagram, a long table or a procedure. Review first and mid-article screens at 1440×900 and 390×844 in each shipped theme; record changes after the [visual review](../references/presentation.md#9-verify-the-presentation).
 
 ## Coverage checks
 
@@ -66,3 +74,4 @@ Before applying a shell to the whole site, select the landing, a real first-task
 - [ ] Page titles and body copy use the audience's language; commands and identifiers stay verbatim.
 - [ ] A CLI, library, service, web, or desktop product is described in its real surface terms.
 - [ ] The outline names who owns updates when behavior or a supported environment changes.
+- [ ] Every high-impact row reaches substantive documentation or states an explicit gap; a real change guide and implementation pattern pass the depth checks.

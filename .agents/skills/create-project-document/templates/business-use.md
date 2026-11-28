@@ -3,6 +3,8 @@
 > **Editing scaffold, not a published page.** Copy this file into the project's docs, replace every `SCAFFOLD` block with verified facts, then delete the blocks, the unused sections, and this notice. A publishable page contains no `SCAFFOLD` text, empty heading, bracketed slot, `TBD`, or sample carried over from this scaffold. Never invent a command, path, version, output, link, screenshot, customer, or result; if a claim has no source or recorded run, cut it or mark it plainly as unverified. Before publishing, search the page for `SCAFFOLD`: it must return zero matches.
 >
 > Write in the language the audience reads. Keep product names, commands, identifiers, and code verbatim. Use the project's existing docs stack; plain Markdown here assumes no generator and no UI framework.
+>
+> For a multi-capability project, use these as page types, not one overview article. Give each significant user job a complete guide. [Coverage and depth](../references/depth.md)
 
 > **SCAFFOLD — title and promise.** Replace the heading with the outcome in the reader's words, not the internal project name. Open with two or three sentences: who this page is for, what they can do after finishing it, and what it does not cover. No product history, version tour, or feature inventory.
 
@@ -34,11 +36,11 @@
 | Web app | One browser task from entry to a saved or otherwise visible state |
 | Desktop app | Install and launch, then one workflow that leaves a saved result |
 
-> **SCAFFOLD — the shape.** Use three to seven steps, in order, each starting with a verb. Show the real result once, near the end. If the reader must choose between variants, keep only the variants that were verified and name the condition that picks each one.
+> **SCAFFOLD — the shape.** Number ordered steps and group long procedures into named stages. Do not omit necessary steps to fit a count. Put checkpoints where they affect the next action and distinguish verified variants from source-only instructions.
 
 ## How the work flows
 
-> **SCAFFOLD — the real day.** Describe the workflow around the product: what triggers it, who acts, what passes to whom, where records or outputs live, and how the result reaches the next person. A short numbered list or a small table is enough; use a diagram only when it carries handoffs that prose cannot. Do not repeat the technical architecture or deployment topology.
+> **SCAFFOLD — the real day.** For each significant workflow, show trigger, actor, prerequisites, inputs, steps, handoffs, results and consequential exceptions or recovery. Use a diagram for meaningful handoffs and ownership. A summary table is not a workflow guide.
 
 ## What changes, and how you know
 

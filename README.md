@@ -81,7 +81,7 @@ The script reads the same three roots in the opposite direction (home to reposit
 
 ## Project documentation
 
-Use [`create-project-document`](.agents/skills/create-project-document/SKILL.md) to create or audit docs with two reader paths: **Business / Use** for understanding the problem and completing a first task, and **Technical / Build** for understanding the system and running it from checkout. The skill includes a rendered visual pilot, rules for reading surfaces and navigation hierarchy, outline and page templates, and an editable layout reference.
+Use [`create-project-document`](.agents/skills/create-project-document/SKILL.md) for two reader paths: **Business / Use** for understanding and operating the product, and **Technical / Build** for running, understanding and changing it. The skill includes a coverage map, depth contracts for workflows and patterns, change-guide scaffolds, and visual and editorial review of rendered articles.
 
 ## Palantir AI FDE
 

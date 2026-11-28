@@ -20,7 +20,7 @@ Use one canvas across the shell; align regions with gutters and, if needed, a th
 
 Check rendered foreground/background pairs (including muted nav, links, active rows and syntax): WCAG AA, at least 4.5:1 for normal text and 3:1 for large text. Focus indicators and essential control boundaries need at least 3:1 against adjacent colors. These example colors are not a substitute for checking the implemented states.
 
-**Pilot before rollout.** Build the landing, one real quickstart and one architecture/reference page using the real theme, longest localized labels, and representative code, table or diagram. Inspect at 100% zoom at 1440×900 and 390×844 before reusing the shell. Compare with the current site when redesigning. Fix crowded screens by cutting duplicate UI and copy before shrinking body text. An editable SVG or token table is a design aid, not acceptance evidence.
+**Pilot before rollout.** Build the landing, one real quickstart and one substantial architecture or pattern article in the actual stack. Inspect first and mid-article screens at 100% zoom at 1440×900 and 390×844 using actual localized labels and representative dense blocks. Compare with the current site when redesigning. Fix crowded screens by removing duplicate UI before shrinking text or cutting details. A wireframe is not acceptance evidence.
 
 ## 1. The first viewport
 
@@ -119,7 +119,7 @@ Keep prose around 60–75ch and move inventories to reference. Reduce oversized 
 
 - One spacing scale for margins, padding and gaps. Do not mix 10/15/22px inventions.
 - Let an H2 start the content directly when no intro is needed. Use whitespace rather than a rule under every heading.
-- Alternate: at most two prose paragraphs, then a list, code block, table or figure. Prose-only stretches longer than about 120 words need a subheading or a structural break.
+- Break up prose at a real change of idea. Use a list, table, code block or figure only when it makes the information easier to use.
 - Keep one left edge for title, lede, body, lists and code. Full-bleed is only for figures, wide tables and comparison strips.
 - Cards inside cards, tinted panels around every section and decorative dividers flatten hierarchy. Use heading level, space and a single surface step.
 - Keep all-caps labels short, letter-spaced and sparse; they are metadata, not headings.
@@ -132,11 +132,11 @@ Keep prose around 60–75ch and move inventories to reference. Reduce oversized 
 | Consecutive prose | ≤2 paragraphs without a structural block |
 | Block stack before a heading | ≤3 different block types |
 | Callout | 1 per screen; only for a guard that changes the next command or decision |
-| Step list | 5–9 steps; split or group beyond that |
+| Step list | Group long procedures into named stages and checkpoints; keep all required steps |
 | Table | ≤6 columns and ~12 rows before splitting or moving to reference |
 | Sidebar | One expansion level by default; group only when it helps scanning |
 | TOC | ≤12 H2 items |
-| Task page | 5–12 minutes to first result; split when it serves two outcomes |
+| Task page | One complete reader job; split only when the goal or prerequisites change |
 
 The test is not "does it fit" but "what is the one thing to read next". If three blocks compete, the hierarchy is missing.
 
@@ -217,7 +217,7 @@ Use reader-task headings ("Verify the result", "Make the first change"), not int
 
 ## 7. One shared example, two paths
 
-Choose one safe, real scenario and make it canonical.
+Choose one safe, real scenario for onboarding and make it canonical. Use additional examples when a substantive workflow, invariant or failure mode needs different evidence.
 
 | Path | Shows |
 |---|---|
@@ -290,6 +290,13 @@ Run these against the implemented site at normal zoom; review captures before ro
 5. **TOC:** every H2 has a stable anchor; deep links land below the sticky bar; active state uses `aria-current`, not color alone.
 6. **Media:** each figure is readable at 100% at the widest layout that shows it; otherwise it links to a full view. Captures came from a real run and contain no secrets.
 7. **Content:** no inventory metrics above the first action; one shared example, linked consistently; cross-path links resolve; no invented commands, outputs, downloads or releases.
-8. **Language:** the rendered copy is in the audience's language; the longest labels and headings do not clip or overflow.
+8. **Long reads:** at both widths, inspect localized headings, a mid-article transition, paragraph rhythm, code or figures, active navigation and anchors. Apply the editorial pass.
 
 Record the routes, viewports, tested themes and screenshot locations. For a redesign, compare the same landing and article before and after; name the specific improvements and any remaining issue. If a viewport, browser, account or runtime was unavailable, report the limit rather than passing the gate.
+
+## 10. Editorial pass
+
+- Use one term per concept and explain it on first use. Keep actual UI labels and identifiers verbatim. Remove filler, inflated titles and narration about writing the docs. State verification limits briefly beside the affected claim.
+- Use task or answer headings and a consistent H1/H2/H3 hierarchy. Do not hand-number standalone titles. Number ordered steps. If a real book needs chapter numbers, generate them from one outline and check headings, breadcrumbs and navigation agree.
+- Remove redundant bold, chips, cards and repeated intros before sacrificing examples, caveats or steps. Use whitespace and the existing typography to guide scanning; do not reuse a vendor's brand or the sketch as a production template.
+- Read a representative long task and explanation line by line. Check transitions, labels, terminology, step order and results against the evidence. Inspect top and mid-scroll in the real shell with dense content. In a large route tree, scope the sidebar to the current topic.
